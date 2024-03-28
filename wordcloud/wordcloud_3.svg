@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="200">
+<style>@font-face{font-family:'Droid Sans Mono';font-weight:normal;font-style:normal;src:url("data:application/font-woff;charset=utf-8;base64,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")format("woff");}</style>
+<style>text{font-family:'Droid Sans Mono';font-weight:normal;font-style:normal;}</style>
+<rect width="100%" height="100%" style="fill:white"></rect>
+<text transform="translate(6,100)" font-size="80" style="fill:rgb(72, 31, 112)">broccoli</text>
+<text transform="translate(103,186)" font-size="77" style="fill:rgb(56, 185, 119)">carrot</text>
+<text transform="translate(22,48)" font-size="59" style="fill:rgb(72, 36, 117)">sandwich</text>
+<text transform="translate(66,132)" font-size="41" style="fill:rgb(60, 80, 139)">pizza</text>
+<text transform="translate(261,131)" font-size="40" style="fill:rgb(59, 187, 117)">fork</text>
+<text transform="translate(4,188)" font-size="29" style="fill:rgb(192, 223, 37)">orange</text>
+<text transform="translate(2,163)" font-size="25" style="fill:rgb(35, 138, 141)">hot dog</text>
+<text transform="translate(192,133)" font-size="25" style="fill:rgb(152, 216, 62)">apple</text>
+<text transform="translate(304,32)" font-size="25" style="fill:rgb(168, 219, 52)">banana</text>
+<text transform="translate(394,190) rotate(-90)" font-size="25" style="fill:rgb(165, 219, 54)">donut</text>
+<text transform="translate(3,129)" font-size="24" style="fill:rgb(226, 228, 24)">cake</text>
+<text transform="translate(317,17)" font-size="21" style="fill:rgb(34, 167, 133)">knife</text>
+<text transform="translate(12,139)" font-size="19" style="fill:rgb(72, 27, 109)">spoon</text>
+<text transform="translate(48,10)" font-size="12" style="fill:rgb(32, 146, 140)">dining table</text>
+<text transform="translate(215,195)" font-size="12" style="fill:rgb(239, 229, 28)">bowl</text>
+<text transform="translate(137,197)" font-size="11" style="fill:rgb(248, 230, 33)">scissors</text>
+<text transform="translate(280,138)" font-size="10" style="fill:rgb(69, 53, 129)">teddy bear</text>
+<text transform="translate(276,193)" font-size="10" style="fill:rgb(76, 194, 108)">cup</text>
+<text transform="translate(19,195)" font-size="10" style="fill:rgb(184, 222, 41)">cat</text>
+<text transform="translate(305,195)" font-size="10" style="fill:rgb(44, 114, 142)">wine glass</text>
+<text transform="translate(8,88) rotate(-90)" font-size="9" style="fill:rgb(184, 222, 41)">vase</text>
+<text transform="translate(217,174)" font-size="8" style="fill:rgb(44, 115, 142)">bottle</text>
+<text transform="translate(189,107)" font-size="7" style="fill:rgb(37, 131, 142)">keyboard</text>
+<text transform="translate(269,166)" font-size="7" style="fill:rgb(170, 220, 50)">dog</text>
+<text transform="translate(51,148)" font-size="7" style="fill:rgb(94, 201, 98)">bed</text>
+<text transform="translate(198,115)" font-size="7" style="fill:rgb(42, 119, 142)">toothbrush</text>
+<text transform="translate(293,57)" font-size="7" style="fill:rgb(149, 216, 64)">book</text>
+<text transform="translate(88,138)" font-size="7" style="fill:rgb(72, 41, 121)">mouse</text>
+<text transform="translate(169,7)" font-size="7" style="fill:rgb(71, 16, 99)">cell phone</text>
+<text transform="translate(3,106)" font-size="7" style="fill:rgb(36, 135, 142)">bird</text>
+<text transform="translate(332,68)" font-size="7" style="fill:rgb(50, 100, 142)">chair</text>
+<text transform="translate(75,91)" font-size="7" style="fill:rgb(39, 173, 129)">laptop</text>
+<text transform="translate(110,139)" font-size="7" style="fill:rgb(61, 77, 138)">potted plant</text>
+<text transform="translate(359,109)" font-size="7" style="fill:rgb(68, 191, 112)">couch</text>
+<text transform="translate(40,110)" font-size="7" style="fill:rgb(34, 167, 133)">remote</text>
+<text transform="translate(363,117)" font-size="7" style="fill:rgb(213, 226, 26)">oven</text>
+<text transform="translate(358,54)" font-size="7" style="fill:rgb(38, 129, 142)">suitcase</text>
+<text transform="translate(5,12)" font-size="7" style="fill:rgb(44, 114, 142)">toaster</text>
+<text transform="translate(78,78)" font-size="6" style="fill:rgb(42, 119, 142)">person</text>
+<text transform="translate(302,161)" font-size="6" style="fill:rgb(129, 211, 77)">tie</text>
+<text transform="translate(114,106)" font-size="5" style="fill:rgb(192, 223, 37)">hair drier</text>
+<text transform="translate(73,137)" font-size="5" style="fill:rgb(38, 130, 142)">bear</text>
+<text transform="translate(334,42)" font-size="5" style="fill:rgb(60, 80, 139)">handbag</text>
+<text transform="translate(313,107)" font-size="5" style="fill:rgb(173, 220, 48)">tv</text>
+<text transform="translate(165,80)" font-size="5" style="fill:rgb(72, 23, 105)">clock</text>
+<text transform="translate(282,5)" font-size="5" style="fill:rgb(181, 222, 43)">umbrella</text>
+<text transform="translate(170,138)" font-size="5" style="fill:rgb(42, 176, 127)">refrigerator</text>
+<text transform="translate(7,168)" font-size="5" style="fill:rgb(202, 225, 31)">parking meter</text>
+<text transform="translate(335,74)" font-size="5" style="fill:rgb(103, 204, 92)">sink</text>
+<text transform="translate(20,35) rotate(-90)" font-size="5" style="fill:rgb(30, 157, 137)">bench</text>
+<text transform="translate(135,53)" font-size="5" style="fill:rgb(31, 158, 137)">microwave</text>
+<text transform="translate(259,78)" font-size="5" style="fill:rgb(122, 209, 81)">toilet</text>
+<text transform="translate(375,78)" font-size="5" style="fill:rgb(31, 152, 139)">bicycle</text>
+<text transform="translate(69,106)" font-size="5" style="fill:rgb(71, 17, 100)">motorcycle</text>
+<text transform="translate(221,74)" font-size="5" style="fill:rgb(31, 153, 138)">stop sign</text>
+<text transform="translate(227,105)" font-size="5" style="fill:rgb(32, 164, 134)">backpack</text>
+<text transform="translate(118,167)" font-size="5" style="fill:rgb(90, 200, 100)">sports ball</text>
+<text transform="translate(293,88)" font-size="5" style="fill:rgb(181, 222, 43)">car</text>
+<text transform="translate(230,37) rotate(-90)" font-size="5" style="fill:rgb(38, 130, 142)">fire hydrant</text>
+<text transform="translate(365,158)" font-size="5" style="fill:rgb(31, 161, 135)">cow</text>
+<text transform="translate(240,8)" font-size="5" style="fill:rgb(70, 52, 128)">frisbee</text>
+<text transform="translate(167,86)" font-size="5" style="fill:rgb(44, 177, 126)">skateboard</text>
+<text transform="translate(128,158)" font-size="5" style="fill:rgb(59, 82, 139)">tennis racket</text>
+<text transform="translate(98,60)" font-size="4" style="fill:rgb(71, 19, 101)">horse</text>
+<text transform="translate(335,158)" font-size="4" style="fill:rgb(63, 72, 137)">sheep</text>
+<text transform="translate(175,52)" font-size="4" style="fill:rgb(108, 205, 90)">baseball bat</text>
+<text transform="translate(328,90)" font-size="4" style="fill:rgb(36, 134, 142)">baseball glove</text>
+<text transform="translate(259,185)" font-size="4" style="fill:rgb(35, 137, 142)">airplane</text>
+<text transform="translate(371,69)" font-size="4" style="fill:rgb(53, 183, 121)">boat</text>
+<text transform="translate(50,167) rotate(-90)" font-size="4" style="fill:rgb(32, 147, 140)">snowboard</text>
+<text transform="translate(254,196)" font-size="4" style="fill:rgb(46, 111, 142)">kite</text>
+<text transform="translate(249,35)" font-size="4" style="fill:rgb(71, 14, 97)">surfboard</text>
+</svg>

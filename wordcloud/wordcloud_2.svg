@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="200">
+<style>@font-face{font-family:'Droid Sans Mono';font-weight:normal;font-style:normal;src:url("data:application/font-woff;charset=utf-8;base64,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")format("woff");}</style>
+<style>text{font-family:'Droid Sans Mono';font-weight:normal;font-style:normal;}</style>
+<rect width="100%" height="100%" style="fill:white"></rect>
+<text transform="translate(14,111)" font-size="111" style="fill:rgb(68, 191, 112)">sink</text>
+<text transform="translate(1,196)" font-size="110" style="fill:rgb(200, 224, 32)">toilet</text>
+<text transform="translate(37,25)" font-size="32" style="fill:rgb(72, 40, 120)">microwave</text>
+<text transform="translate(208,19)" font-size="24" style="fill:rgb(147, 215, 65)">refrigerator</text>
+<text transform="translate(22,126) rotate(-90)" font-size="24" style="fill:rgb(63, 72, 137)">toaster</text>
+<text transform="translate(319,36)" font-size="24" style="fill:rgb(184, 222, 41)">tv</text>
+<text transform="translate(275,96)" font-size="24" style="fill:rgb(43, 116, 142)">mouse</text>
+<text transform="translate(279,60)" font-size="24" style="fill:rgb(42, 118, 142)">oven</text>
+<text transform="translate(266,79)" font-size="22" style="fill:rgb(72, 28, 110)">hair drier</text>
+<text transform="translate(36,46)" font-size="22" style="fill:rgb(137, 213, 72)">couch</text>
+<text transform="translate(39,129)" font-size="22" style="fill:rgb(184, 222, 41)">keyboard</text>
+<text transform="translate(306,120)" font-size="22" style="fill:rgb(74, 193, 109)">bed</text>
+<text transform="translate(134,42)" font-size="22" style="fill:rgb(71, 13, 96)">laptop</text>
+<text transform="translate(239,45)" font-size="22" style="fill:rgb(68, 58, 131)">remote</text>
+<text transform="translate(343,50)" font-size="22" style="fill:rgb(68, 2, 86)">book</text>
+<text transform="translate(290,182)" font-size="21" style="fill:rgb(132, 212, 75)">vase</text>
+<text transform="translate(239,134)" font-size="18" style="fill:rgb(52, 97, 141)">toothbrush</text>
+<text transform="translate(188,185) rotate(-90)" font-size="17" style="fill:rgb(231, 228, 25)">potted plant</text>
+<text transform="translate(224,88) rotate(-90)" font-size="16" style="fill:rgb(70, 52, 128)">bottle</text>
+<text transform="translate(38,160)" font-size="16" style="fill:rgb(49, 104, 142)">cat</text>
+<text transform="translate(346,108)" font-size="16" style="fill:rgb(70, 50, 126)">chair</text>
+<text transform="translate(123,97)" font-size="15" style="fill:rgb(58, 83, 139)">cup</text>
+<text transform="translate(256,179) rotate(-90)" font-size="14" style="fill:rgb(186, 222, 40)">bowl</text>
+<text transform="translate(203,177) rotate(-90)" font-size="14" style="fill:rgb(170, 220, 50)">scissors</text>
+<text transform="translate(57,71)" font-size="9" style="fill:rgb(37, 133, 142)">wine glass</text>
+<text transform="translate(354,89)" font-size="9" style="fill:rgb(115, 208, 86)">clock</text>
+<text transform="translate(346,117)" font-size="9" style="fill:rgb(37, 171, 130)">teddy bear</text>
+<text transform="translate(67,83)" font-size="9" style="fill:rgb(44, 115, 142)">suitcase</text>
+<text transform="translate(344,58)" font-size="9" style="fill:rgb(62, 74, 137)">cell phone</text>
+<text transform="translate(215,155) rotate(-90)" font-size="9" style="fill:rgb(71, 14, 97)">spoon</text>
+<text transform="translate(135,196) rotate(-90)" font-size="9" style="fill:rgb(229, 228, 25)">dining table</text>
+<text transform="translate(39,167)" font-size="9" style="fill:rgb(32, 146, 140)">knife</text>
+<text transform="translate(378,18)" font-size="9" style="fill:rgb(70, 52, 128)">dog</text>
+<text transform="translate(70,90)" font-size="8" style="fill:rgb(41, 121, 142)">apple</text>
+<text transform="translate(19,8)" font-size="8" style="fill:rgb(33, 166, 133)">tie</text>
+<text transform="translate(158,181) rotate(-90)" font-size="8" style="fill:rgb(56, 89, 140)">orange</text>
+<text transform="translate(332,167) rotate(-90)" font-size="8" style="fill:rgb(55, 91, 141)">cake</text>
+<text transform="translate(369,176)" font-size="7" style="fill:rgb(72, 24, 106)">handbag</text>
+<text transform="translate(251,26)" font-size="7" style="fill:rgb(236, 229, 27)">banana</text>
+<text transform="translate(241,139)" font-size="7" style="fill:rgb(253, 231, 37)">person</text>
+<text transform="translate(381,29)" font-size="7" style="fill:rgb(41, 123, 142)">fork</text>
+<text transform="translate(3,21)" font-size="7" style="fill:rgb(52, 97, 141)">backpack</text>
+<text transform="translate(253,121)" font-size="7" style="fill:rgb(253, 231, 37)">donut</text>
+<text transform="translate(353,34)" font-size="6" style="fill:rgb(181, 222, 43)">pizza</text>
+<text transform="translate(55,30)" font-size="5" style="fill:rgb(36, 135, 142)">sandwich</text>
+<text transform="translate(221,152) rotate(-90)" font-size="5" style="fill:rgb(71, 19, 101)">carrot</text>
+<text transform="translate(2,187)" font-size="5" style="fill:rgb(108, 205, 90)">bird</text>
+<text transform="translate(364,124)" font-size="5" style="fill:rgb(248, 230, 33)">umbrella</text>
+<text transform="translate(13,180) rotate(-90)" font-size="5" style="fill:rgb(44, 115, 142)">hot dog</text>
+<text transform="translate(78,98)" font-size="5" style="fill:rgb(56, 185, 119)">bench</text>
+<text transform="translate(373,63)" font-size="5" style="fill:rgb(58, 186, 118)">broccoli</text>
+<text transform="translate(124,81)" font-size="5" style="fill:rgb(72, 36, 117)">bicycle</text>
+<text transform="translate(42,181)" font-size="4" style="fill:rgb(221, 227, 24)">parking meter</text>
+<text transform="translate(293,113)" font-size="4" style="fill:rgb(162, 218, 55)">car</text>
+<text transform="translate(318,41)" font-size="4" style="fill:rgb(184, 222, 41)">sports ball</text>
+<text transform="translate(112,133)" font-size="4" style="fill:rgb(70, 52, 128)">skateboard</text>
+<text transform="translate(100,168)" font-size="4" style="fill:rgb(101, 203, 94)">train</text>
+<text transform="translate(259,150)" font-size="4" style="fill:rgb(70, 192, 111)">horse</text>
+<text transform="translate(209,182)" font-size="4" style="fill:rgb(70, 48, 126)">bear</text>
+</svg>
