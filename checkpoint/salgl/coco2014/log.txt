@@ -1,0 +1,1099 @@
+[03/27 22:25:34.000]: Command: main_mlc.py --cfg config/SALGL/coco2014.yaml --output checkpoint/salgl/coco2014/work4/ --gpus 4,5,6,7 --seed 42 --print-freq 400
+[03/27 22:25:34.001]: Full config saved to checkpoint/salgl/coco2014/work4/config.yaml
+[03/27 22:25:34.001]: world size: 4
+[03/27 22:25:34.002]: dist.get_rank(): 0
+[03/27 22:25:34.002]: local_rank: 0
+[03/27 22:25:34.002]: ==========================================
+[03/27 22:25:34.002]: ==========       CONFIG      =============
+[03/27 22:25:34.002]: ==========================================
+[03/27 22:25:34.003]: 
+ DATA:
+  TRANSFORM:
+    TWOTYPE:
+      img_size: 448
+      is_twotype: False
+      min_scale: 0.08
+    crop: False
+    cut_fact: 0.5
+    cutout: True
+    img_size: 448
+    length: 224
+    n_holes: 1
+    orid_norm: False
+    remove_norm: False
+  classnames: ['person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'train', 'truck', 'boat', 'traffic light', 'fire hydrant', 'stop sign', 'parking meter', 'bench', 'bird', 'cat', 'dog', 'horse', 'sheep', 'cow', 'elephant', 'bear', 'zebra', 'giraffe', 'backpack', 'umbrella', 'handbag', 'tie', 'suitcase', 'frisbee', 'skis', 'snowboard', 'sports ball', 'kite', 'baseball bat', 'baseball glove', 'skateboard', 'surfboard', 'tennis racket', 'bottle', 'wine glass', 'cup', 'fork', 'knife', 'spoon', 'bowl', 'banana', 'apple', 'sandwich', 'orange', 'broccoli', 'carrot', 'hot dog', 'pizza', 'donut', 'cake', 'chair', 'couch', 'potted plant', 'bed', 'dining table', 'toilet', 'tv', 'laptop', 'mouse', 'remote', 'keyboard', 'cell phone', 'microwave', 'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock', 'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush']
+  dataname: coco14
+  dataset_dir: /media/data2/MLICdataset/
+  len_train_loader: -1
+  num_class: 80
+  num_workers: 8
+  prob: 0.5
+DDP:
+  dist_url: env://
+  gpus: 0
+  local_rank: 0
+  rank: 0
+  seed: 42
+  world_size: 4
+EVAL:
+  val_epoch_start: 0
+  val_interval: 1
+INPUT:
+  COLORJITTER_B: 0.4
+  COLORJITTER_C: 0.4
+  COLORJITTER_H: 0.1
+  COLORJITTER_S: 0.4
+  CROP_PADDING: 4
+  CUTOUT_LEN: 16
+  CUTOUT_N: 1
+  GB_K: 21
+  GB_P: 0.5
+  GN_MEAN: 0.0
+  GN_STD: 0.15
+  INTERPOLATION: bicubic
+  NO_TRANSFORM: False
+  PIXEL_MEAN: [0.48145466, 0.4578275, 0.40821073]
+  PIXEL_STD: [0.26862954, 0.26130258, 0.27577711]
+  RANDAUGMENT_M: 10
+  RANDAUGMENT_N: 2
+  RGS_P: 0.2
+  SIZE: (448, 448)
+  TRANSFORMS: ('random_resized_crop', 'MLC_Policy', 'random_flip', 'normalize')
+  TRANSFORMS_TEST: ('resize', 'normalize')
+  cutout_proportion: 0.4
+  random_resized_crop_scale: (0.5, 1.0)
+INPUT_OUTPUT:
+  out_aps: False
+  output: checkpoint/salgl/coco2014/work4/
+  print_freq: 400
+  resume: 
+  resume_omit: []
+LOSS:
+  ASL:
+    dtgfl: True
+    eps: 1e-05
+    gamma_neg: 2.0
+    gamma_pos: 0.0
+    loss_clip: 0.0
+  Coef:
+    batch_en_coef: 1.0
+    cls_asl_coef: 1.0
+    sample_en_coef: 1.0
+  loss_dev: -1
+  loss_mode: asl
+MODE:
+  name: SALGL-R101
+MODEL:
+  BACKBONE:
+    backbone: resnet101
+    frozen_backbone: False
+    pretrained: True
+  CAPTION:
+    class_token_position: end
+    csc: True
+    ctx_init: 
+    ctx_init_neg: 
+    ctx_init_pos: 
+    gl_merge_rate: 0.5
+    n_ctx: 16
+    n_ctx_neg: 16
+    n_ctx_pos: 16
+  CLASSIFIER:
+    num_class: 80
+  SALGL:
+    comat_ema: True
+    comat_path: data/mscoco/comatrix.npy
+    distributed: True
+    embed_path: data/mscoco/bert.npy
+    embed_type: bert
+    ignore_path: data/mscoco/ignore.npy
+    ignore_self: False
+    lamda: 1.0
+    normalize: True
+    num_scenes: 6
+    num_steps: 3
+    outmess: True
+    pct_start: 0.2
+    pos: False
+    soft: False
+    threshold: 0.5
+    topk: 3
+    zero_init: False
+  arch: SALGL-R101
+  use_BN: False
+OPTIMIZER:
+  batch_size: 128
+  epoch_step: [10, 20]
+  lr: 0.0001
+  lr_mult: 1.0
+  lr_scheduler: OneCycleLR
+  lrp: 0.1
+  max_clip_grad_norm: 0
+  momentum: 0.9
+  optim: AdamW
+  pattern_parameters: single_lr
+  sgd_dampening: 0
+  sgd_nesterov: False
+  warmup_epoch: 0
+  warmup_lr: 1e-05
+  warmup_multiplier: 50
+  warmup_scheduler: False
+  warmup_type: linear
+  weight_decay: 0.01
+TRAIN:
+  amp: True
+  cpus: None
+  device: cuda
+  early_stop: True
+  ema_decay: 0.9997
+  ema_epoch: -1
+  epochs: 80
+  evaluate: False
+  kill_stop: True
+  ratio: 1.0
+  seed: 1
+  start_epoch: 0
+[03/27 22:25:34.003]: ==========================================
+[03/27 22:25:34.003]: ===========        END        ============
+[03/27 22:25:34.003]: ==========================================
+[03/27 22:25:34.004]: 
+
+[03/27 22:25:36.038]: number of params:117948561
+[03/27 22:25:36.040]: params:
+{
+  "module.backbone.0.weight": 9408,
+  "module.backbone.1.weight": 64,
+  "module.backbone.1.bias": 64,
+  "module.backbone.4.0.conv1.weight": 4096,
+  "module.backbone.4.0.bn1.weight": 64,
+  "module.backbone.4.0.bn1.bias": 64,
+  "module.backbone.4.0.conv2.weight": 36864,
+  "module.backbone.4.0.bn2.weight": 64,
+  "module.backbone.4.0.bn2.bias": 64,
+  "module.backbone.4.0.conv3.weight": 16384,
+  "module.backbone.4.0.bn3.weight": 256,
+  "module.backbone.4.0.bn3.bias": 256,
+  "module.backbone.4.0.downsample.0.weight": 16384,
+  "module.backbone.4.0.downsample.1.weight": 256,
+  "module.backbone.4.0.downsample.1.bias": 256,
+  "module.backbone.4.1.conv1.weight": 16384,
+  "module.backbone.4.1.bn1.weight": 64,
+  "module.backbone.4.1.bn1.bias": 64,
+  "module.backbone.4.1.conv2.weight": 36864,
+  "module.backbone.4.1.bn2.weight": 64,
+  "module.backbone.4.1.bn2.bias": 64,
+  "module.backbone.4.1.conv3.weight": 16384,
+  "module.backbone.4.1.bn3.weight": 256,
+  "module.backbone.4.1.bn3.bias": 256,
+  "module.backbone.4.2.conv1.weight": 16384,
+  "module.backbone.4.2.bn1.weight": 64,
+  "module.backbone.4.2.bn1.bias": 64,
+  "module.backbone.4.2.conv2.weight": 36864,
+  "module.backbone.4.2.bn2.weight": 64,
+  "module.backbone.4.2.bn2.bias": 64,
+  "module.backbone.4.2.conv3.weight": 16384,
+  "module.backbone.4.2.bn3.weight": 256,
+  "module.backbone.4.2.bn3.bias": 256,
+  "module.backbone.5.0.conv1.weight": 32768,
+  "module.backbone.5.0.bn1.weight": 128,
+  "module.backbone.5.0.bn1.bias": 128,
+  "module.backbone.5.0.conv2.weight": 147456,
+  "module.backbone.5.0.bn2.weight": 128,
+  "module.backbone.5.0.bn2.bias": 128,
+  "module.backbone.5.0.conv3.weight": 65536,
+  "module.backbone.5.0.bn3.weight": 512,
+  "module.backbone.5.0.bn3.bias": 512,
+  "module.backbone.5.0.downsample.0.weight": 131072,
+  "module.backbone.5.0.downsample.1.weight": 512,
+  "module.backbone.5.0.downsample.1.bias": 512,
+  "module.backbone.5.1.conv1.weight": 65536,
+  "module.backbone.5.1.bn1.weight": 128,
+  "module.backbone.5.1.bn1.bias": 128,
+  "module.backbone.5.1.conv2.weight": 147456,
+  "module.backbone.5.1.bn2.weight": 128,
+  "module.backbone.5.1.bn2.bias": 128,
+  "module.backbone.5.1.conv3.weight": 65536,
+  "module.backbone.5.1.bn3.weight": 512,
+  "module.backbone.5.1.bn3.bias": 512,
+  "module.backbone.5.2.conv1.weight": 65536,
+  "module.backbone.5.2.bn1.weight": 128,
+  "module.backbone.5.2.bn1.bias": 128,
+  "module.backbone.5.2.conv2.weight": 147456,
+  "module.backbone.5.2.bn2.weight": 128,
+  "module.backbone.5.2.bn2.bias": 128,
+  "module.backbone.5.2.conv3.weight": 65536,
+  "module.backbone.5.2.bn3.weight": 512,
+  "module.backbone.5.2.bn3.bias": 512,
+  "module.backbone.5.3.conv1.weight": 65536,
+  "module.backbone.5.3.bn1.weight": 128,
+  "module.backbone.5.3.bn1.bias": 128,
+  "module.backbone.5.3.conv2.weight": 147456,
+  "module.backbone.5.3.bn2.weight": 128,
+  "module.backbone.5.3.bn2.bias": 128,
+  "module.backbone.5.3.conv3.weight": 65536,
+  "module.backbone.5.3.bn3.weight": 512,
+  "module.backbone.5.3.bn3.bias": 512,
+  "module.backbone.6.0.conv1.weight": 131072,
+  "module.backbone.6.0.bn1.weight": 256,
+  "module.backbone.6.0.bn1.bias": 256,
+  "module.backbone.6.0.conv2.weight": 589824,
+  "module.backbone.6.0.bn2.weight": 256,
+  "module.backbone.6.0.bn2.bias": 256,
+  "module.backbone.6.0.conv3.weight": 262144,
+  "module.backbone.6.0.bn3.weight": 1024,
+  "module.backbone.6.0.bn3.bias": 1024,
+  "module.backbone.6.0.downsample.0.weight": 524288,
+  "module.backbone.6.0.downsample.1.weight": 1024,
+  "module.backbone.6.0.downsample.1.bias": 1024,
+  "module.backbone.6.1.conv1.weight": 262144,
+  "module.backbone.6.1.bn1.weight": 256,
+  "module.backbone.6.1.bn1.bias": 256,
+  "module.backbone.6.1.conv2.weight": 589824,
+  "module.backbone.6.1.bn2.weight": 256,
+  "module.backbone.6.1.bn2.bias": 256,
+  "module.backbone.6.1.conv3.weight": 262144,
+  "module.backbone.6.1.bn3.weight": 1024,
+  "module.backbone.6.1.bn3.bias": 1024,
+  "module.backbone.6.2.conv1.weight": 262144,
+  "module.backbone.6.2.bn1.weight": 256,
+  "module.backbone.6.2.bn1.bias": 256,
+  "module.backbone.6.2.conv2.weight": 589824,
+  "module.backbone.6.2.bn2.weight": 256,
+  "module.backbone.6.2.bn2.bias": 256,
+  "module.backbone.6.2.conv3.weight": 262144,
+  "module.backbone.6.2.bn3.weight": 1024,
+  "module.backbone.6.2.bn3.bias": 1024,
+  "module.backbone.6.3.conv1.weight": 262144,
+  "module.backbone.6.3.bn1.weight": 256,
+  "module.backbone.6.3.bn1.bias": 256,
+  "module.backbone.6.3.conv2.weight": 589824,
+  "module.backbone.6.3.bn2.weight": 256,
+  "module.backbone.6.3.bn2.bias": 256,
+  "module.backbone.6.3.conv3.weight": 262144,
+  "module.backbone.6.3.bn3.weight": 1024,
+  "module.backbone.6.3.bn3.bias": 1024,
+  "module.backbone.6.4.conv1.weight": 262144,
+  "module.backbone.6.4.bn1.weight": 256,
+  "module.backbone.6.4.bn1.bias": 256,
+  "module.backbone.6.4.conv2.weight": 589824,
+  "module.backbone.6.4.bn2.weight": 256,
+  "module.backbone.6.4.bn2.bias": 256,
+  "module.backbone.6.4.conv3.weight": 262144,
+  "module.backbone.6.4.bn3.weight": 1024,
+  "module.backbone.6.4.bn3.bias": 1024,
+  "module.backbone.6.5.conv1.weight": 262144,
+  "module.backbone.6.5.bn1.weight": 256,
+  "module.backbone.6.5.bn1.bias": 256,
+  "module.backbone.6.5.conv2.weight": 589824,
+  "module.backbone.6.5.bn2.weight": 256,
+  "module.backbone.6.5.bn2.bias": 256,
+  "module.backbone.6.5.conv3.weight": 262144,
+  "module.backbone.6.5.bn3.weight": 1024,
+  "module.backbone.6.5.bn3.bias": 1024,
+  "module.backbone.6.6.conv1.weight": 262144,
+  "module.backbone.6.6.bn1.weight": 256,
+  "module.backbone.6.6.bn1.bias": 256,
+  "module.backbone.6.6.conv2.weight": 589824,
+  "module.backbone.6.6.bn2.weight": 256,
+  "module.backbone.6.6.bn2.bias": 256,
+  "module.backbone.6.6.conv3.weight": 262144,
+  "module.backbone.6.6.bn3.weight": 1024,
+  "module.backbone.6.6.bn3.bias": 1024,
+  "module.backbone.6.7.conv1.weight": 262144,
+  "module.backbone.6.7.bn1.weight": 256,
+  "module.backbone.6.7.bn1.bias": 256,
+  "module.backbone.6.7.conv2.weight": 589824,
+  "module.backbone.6.7.bn2.weight": 256,
+  "module.backbone.6.7.bn2.bias": 256,
+  "module.backbone.6.7.conv3.weight": 262144,
+  "module.backbone.6.7.bn3.weight": 1024,
+  "module.backbone.6.7.bn3.bias": 1024,
+  "module.backbone.6.8.conv1.weight": 262144,
+  "module.backbone.6.8.bn1.weight": 256,
+  "module.backbone.6.8.bn1.bias": 256,
+  "module.backbone.6.8.conv2.weight": 589824,
+  "module.backbone.6.8.bn2.weight": 256,
+  "module.backbone.6.8.bn2.bias": 256,
+  "module.backbone.6.8.conv3.weight": 262144,
+  "module.backbone.6.8.bn3.weight": 1024,
+  "module.backbone.6.8.bn3.bias": 1024,
+  "module.backbone.6.9.conv1.weight": 262144,
+  "module.backbone.6.9.bn1.weight": 256,
+  "module.backbone.6.9.bn1.bias": 256,
+  "module.backbone.6.9.conv2.weight": 589824,
+  "module.backbone.6.9.bn2.weight": 256,
+  "module.backbone.6.9.bn2.bias": 256,
+  "module.backbone.6.9.conv3.weight": 262144,
+  "module.backbone.6.9.bn3.weight": 1024,
+  "module.backbone.6.9.bn3.bias": 1024,
+  "module.backbone.6.10.conv1.weight": 262144,
+  "module.backbone.6.10.bn1.weight": 256,
+  "module.backbone.6.10.bn1.bias": 256,
+  "module.backbone.6.10.conv2.weight": 589824,
+  "module.backbone.6.10.bn2.weight": 256,
+  "module.backbone.6.10.bn2.bias": 256,
+  "module.backbone.6.10.conv3.weight": 262144,
+  "module.backbone.6.10.bn3.weight": 1024,
+  "module.backbone.6.10.bn3.bias": 1024,
+  "module.backbone.6.11.conv1.weight": 262144,
+  "module.backbone.6.11.bn1.weight": 256,
+  "module.backbone.6.11.bn1.bias": 256,
+  "module.backbone.6.11.conv2.weight": 589824,
+  "module.backbone.6.11.bn2.weight": 256,
+  "module.backbone.6.11.bn2.bias": 256,
+  "module.backbone.6.11.conv3.weight": 262144,
+  "module.backbone.6.11.bn3.weight": 1024,
+  "module.backbone.6.11.bn3.bias": 1024,
+  "module.backbone.6.12.conv1.weight": 262144,
+  "module.backbone.6.12.bn1.weight": 256,
+  "module.backbone.6.12.bn1.bias": 256,
+  "module.backbone.6.12.conv2.weight": 589824,
+  "module.backbone.6.12.bn2.weight": 256,
+  "module.backbone.6.12.bn2.bias": 256,
+  "module.backbone.6.12.conv3.weight": 262144,
+  "module.backbone.6.12.bn3.weight": 1024,
+  "module.backbone.6.12.bn3.bias": 1024,
+  "module.backbone.6.13.conv1.weight": 262144,
+  "module.backbone.6.13.bn1.weight": 256,
+  "module.backbone.6.13.bn1.bias": 256,
+  "module.backbone.6.13.conv2.weight": 589824,
+  "module.backbone.6.13.bn2.weight": 256,
+  "module.backbone.6.13.bn2.bias": 256,
+  "module.backbone.6.13.conv3.weight": 262144,
+  "module.backbone.6.13.bn3.weight": 1024,
+  "module.backbone.6.13.bn3.bias": 1024,
+  "module.backbone.6.14.conv1.weight": 262144,
+  "module.backbone.6.14.bn1.weight": 256,
+  "module.backbone.6.14.bn1.bias": 256,
+  "module.backbone.6.14.conv2.weight": 589824,
+  "module.backbone.6.14.bn2.weight": 256,
+  "module.backbone.6.14.bn2.bias": 256,
+  "module.backbone.6.14.conv3.weight": 262144,
+  "module.backbone.6.14.bn3.weight": 1024,
+  "module.backbone.6.14.bn3.bias": 1024,
+  "module.backbone.6.15.conv1.weight": 262144,
+  "module.backbone.6.15.bn1.weight": 256,
+  "module.backbone.6.15.bn1.bias": 256,
+  "module.backbone.6.15.conv2.weight": 589824,
+  "module.backbone.6.15.bn2.weight": 256,
+  "module.backbone.6.15.bn2.bias": 256,
+  "module.backbone.6.15.conv3.weight": 262144,
+  "module.backbone.6.15.bn3.weight": 1024,
+  "module.backbone.6.15.bn3.bias": 1024,
+  "module.backbone.6.16.conv1.weight": 262144,
+  "module.backbone.6.16.bn1.weight": 256,
+  "module.backbone.6.16.bn1.bias": 256,
+  "module.backbone.6.16.conv2.weight": 589824,
+  "module.backbone.6.16.bn2.weight": 256,
+  "module.backbone.6.16.bn2.bias": 256,
+  "module.backbone.6.16.conv3.weight": 262144,
+  "module.backbone.6.16.bn3.weight": 1024,
+  "module.backbone.6.16.bn3.bias": 1024,
+  "module.backbone.6.17.conv1.weight": 262144,
+  "module.backbone.6.17.bn1.weight": 256,
+  "module.backbone.6.17.bn1.bias": 256,
+  "module.backbone.6.17.conv2.weight": 589824,
+  "module.backbone.6.17.bn2.weight": 256,
+  "module.backbone.6.17.bn2.bias": 256,
+  "module.backbone.6.17.conv3.weight": 262144,
+  "module.backbone.6.17.bn3.weight": 1024,
+  "module.backbone.6.17.bn3.bias": 1024,
+  "module.backbone.6.18.conv1.weight": 262144,
+  "module.backbone.6.18.bn1.weight": 256,
+  "module.backbone.6.18.bn1.bias": 256,
+  "module.backbone.6.18.conv2.weight": 589824,
+  "module.backbone.6.18.bn2.weight": 256,
+  "module.backbone.6.18.bn2.bias": 256,
+  "module.backbone.6.18.conv3.weight": 262144,
+  "module.backbone.6.18.bn3.weight": 1024,
+  "module.backbone.6.18.bn3.bias": 1024,
+  "module.backbone.6.19.conv1.weight": 262144,
+  "module.backbone.6.19.bn1.weight": 256,
+  "module.backbone.6.19.bn1.bias": 256,
+  "module.backbone.6.19.conv2.weight": 589824,
+  "module.backbone.6.19.bn2.weight": 256,
+  "module.backbone.6.19.bn2.bias": 256,
+  "module.backbone.6.19.conv3.weight": 262144,
+  "module.backbone.6.19.bn3.weight": 1024,
+  "module.backbone.6.19.bn3.bias": 1024,
+  "module.backbone.6.20.conv1.weight": 262144,
+  "module.backbone.6.20.bn1.weight": 256,
+  "module.backbone.6.20.bn1.bias": 256,
+  "module.backbone.6.20.conv2.weight": 589824,
+  "module.backbone.6.20.bn2.weight": 256,
+  "module.backbone.6.20.bn2.bias": 256,
+  "module.backbone.6.20.conv3.weight": 262144,
+  "module.backbone.6.20.bn3.weight": 1024,
+  "module.backbone.6.20.bn3.bias": 1024,
+  "module.backbone.6.21.conv1.weight": 262144,
+  "module.backbone.6.21.bn1.weight": 256,
+  "module.backbone.6.21.bn1.bias": 256,
+  "module.backbone.6.21.conv2.weight": 589824,
+  "module.backbone.6.21.bn2.weight": 256,
+  "module.backbone.6.21.bn2.bias": 256,
+  "module.backbone.6.21.conv3.weight": 262144,
+  "module.backbone.6.21.bn3.weight": 1024,
+  "module.backbone.6.21.bn3.bias": 1024,
+  "module.backbone.6.22.conv1.weight": 262144,
+  "module.backbone.6.22.bn1.weight": 256,
+  "module.backbone.6.22.bn1.bias": 256,
+  "module.backbone.6.22.conv2.weight": 589824,
+  "module.backbone.6.22.bn2.weight": 256,
+  "module.backbone.6.22.bn2.bias": 256,
+  "module.backbone.6.22.conv3.weight": 262144,
+  "module.backbone.6.22.bn3.weight": 1024,
+  "module.backbone.6.22.bn3.bias": 1024,
+  "module.backbone.7.0.conv1.weight": 524288,
+  "module.backbone.7.0.bn1.weight": 512,
+  "module.backbone.7.0.bn1.bias": 512,
+  "module.backbone.7.0.conv2.weight": 2359296,
+  "module.backbone.7.0.bn2.weight": 512,
+  "module.backbone.7.0.bn2.bias": 512,
+  "module.backbone.7.0.conv3.weight": 1048576,
+  "module.backbone.7.0.bn3.weight": 2048,
+  "module.backbone.7.0.bn3.bias": 2048,
+  "module.backbone.7.0.downsample.0.weight": 2097152,
+  "module.backbone.7.0.downsample.1.weight": 2048,
+  "module.backbone.7.0.downsample.1.bias": 2048,
+  "module.backbone.7.1.conv1.weight": 1048576,
+  "module.backbone.7.1.bn1.weight": 512,
+  "module.backbone.7.1.bn1.bias": 512,
+  "module.backbone.7.1.conv2.weight": 2359296,
+  "module.backbone.7.1.bn2.weight": 512,
+  "module.backbone.7.1.bn2.bias": 512,
+  "module.backbone.7.1.conv3.weight": 1048576,
+  "module.backbone.7.1.bn3.weight": 2048,
+  "module.backbone.7.1.bn3.bias": 2048,
+  "module.backbone.7.2.conv1.weight": 1048576,
+  "module.backbone.7.2.bn1.weight": 512,
+  "module.backbone.7.2.bn1.bias": 512,
+  "module.backbone.7.2.conv2.weight": 2359296,
+  "module.backbone.7.2.bn2.weight": 512,
+  "module.backbone.7.2.bn2.bias": 512,
+  "module.backbone.7.2.conv3.weight": 1048576,
+  "module.backbone.7.2.bn3.weight": 2048,
+  "module.backbone.7.2.bn3.bias": 2048,
+  "module.tb.layers.0.self_attn.in_proj_weight": 12582912,
+  "module.tb.layers.0.self_attn.in_proj_bias": 6144,
+  "module.tb.layers.0.self_attn.out_proj.weight": 4194304,
+  "module.tb.layers.0.self_attn.out_proj.bias": 2048,
+  "module.tb.layers.0.linear1.weight": 4194304,
+  "module.tb.layers.0.linear1.bias": 2048,
+  "module.tb.layers.0.linear2.weight": 4194304,
+  "module.tb.layers.0.linear2.bias": 2048,
+  "module.tb.layers.0.norm1.weight": 2048,
+  "module.tb.layers.0.norm1.bias": 2048,
+  "module.tb.layers.0.norm2.weight": 2048,
+  "module.tb.layers.0.norm2.bias": 2048,
+  "module.scene_linear.weight": 12288,
+  "module.ggnn.fc1_w.weight": 8388608,
+  "module.ggnn.fc1_w.bias": 2048,
+  "module.ggnn.fc1_u.weight": 4194304,
+  "module.ggnn.fc1_u.bias": 2048,
+  "module.ggnn.fc2_w.weight": 8388608,
+  "module.ggnn.fc2_w.bias": 2048,
+  "module.ggnn.fc2_u.weight": 4194304,
+  "module.ggnn.fc2_u.bias": 2048,
+  "module.ggnn.fc3_w.weight": 8388608,
+  "module.ggnn.fc3_w.bias": 2048,
+  "module.ggnn.fc3_u.weight": 4194304,
+  "module.ggnn.fc3_u.bias": 2048,
+  "module.attention.linear1.weight": 2097152,
+  "module.attention.linear2.weight": 786432,
+  "module.attention.hidden_linear.weight": 1048576,
+  "module.attention.hidden_linear.bias": 1024,
+  "module.attention.target_linear.weight": 1024,
+  "module.attention.target_linear.bias": 1,
+  "module.fc.0.weight": 8388608,
+  "module.fc.0.bias": 2048,
+  "module.classifier.weight": 163840,
+  "module.classifier.bias": 80
+}
+[03/27 22:25:36.041]: lr: 0.0001
+[03/27 22:25:36.048]: Using Cutout!!!
+[03/27 22:25:36.048]: mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]
+[03/27 22:25:36.054]: train_data_transform Compose(
+    Resize(size=(448, 448), interpolation=bilinear, max_size=None, antialias=True)
+    RandomHorizontalFlip(p=0.5)
+    <dataset.transforms.cutout.CutoutPIL object at 0x7a67585bdfc0>
+    Random Augment Policy
+    ToTensor()
+    Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+)
+[03/27 22:25:36.054]: test_data_transform Compose(
+    Resize(size=(448, 448), interpolation=bilinear, max_size=None, antialias=True)
+    ToTensor()
+    Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+)
+[03/27 22:26:04.022]: Epoch: [0/80]  [  0/646]  eta: 1:56:29  lr: 4.000002e-06  all_loss: 195.0731 (195.0731)  los_cls: 192.1865 (192.1865)  loss_batch_en: 1.1245 (1.1245)  loss_sample_en: 1.7621 (1.7621)  los_cls_unscaled: 192.1865 (192.1865)  loss_batch_en_unscaled: 1.1245 (1.1245)  loss_sample_en_unscaled: 1.7621 (1.7621)  wd: 0.0100 (0.0100)  time: 1.08E+01  data: 9.28E-01  max mem: 13335
+[03/27 22:28:10.291]: Epoch: [0/80]  [400/646]  eta: 0:01:24  lr: 4.356157e-06  all_loss: 47.1200 (63.4340)  los_cls: 45.3962 (61.6338)  loss_batch_en: 0.0715 (0.0609)  loss_sample_en: 1.6849 (1.7393)  los_cls_unscaled: 45.3962 (61.6338)  loss_batch_en_unscaled: 0.0715 (0.0609)  loss_sample_en_unscaled: 1.6849 (1.7393)  wd: 0.0100 (0.0100)  time: 3.16E-01  data: 1.88E-04  max mem: 14232
+[03/27 22:29:27.764]: Epoch: [0/80]  [645/646]  eta: 0:00:00  lr: 4.922484e-06  all_loss: 41.5324 (55.8110)  los_cls: 39.8321 (54.0312)  loss_batch_en: 0.1124 (0.0793)  loss_sample_en: 1.5960 (1.7005)  los_cls_unscaled: 39.8321 (54.0312)  loss_batch_en_unscaled: 0.1124 (0.0793)  loss_sample_en_unscaled: 1.5960 (1.7005)  wd: 0.0100 (0.0100)  time: 3.09E-01  data: 1.79E-04  max mem: 14232
+[03/27 22:29:28.088]: Epoch: [0/80] Total time: 0:03:34 (0.332643 s / it)
+[03/27 22:29:29.835]: Epoch: [0]  [  0/317]  eta: 0:04:28    time: 8.47E-01  data: 5.82E-01  max mem: 14232
+[03/27 22:29:58.181]: Epoch: [0]  [316/317]  eta: 0:00:00    time: 1.12E-01  data: 1.81E-04  max mem: 14232
+[03/27 22:29:58.427]: Epoch: [0] Total time: 0:00:29 (0.092871 s / it)
+[03/27 22:29:58.428]: => synchronize...
+[03/27 22:29:59.987]: Calculating mAP:
+[03/27 22:30:04.003]:   mAP: 0.6184429796649724
+[03/27 22:30:05.492]: Epoch: [0]  [  0/317]  eta: 0:03:42    time: 7.02E-01  data: 5.86E-01  max mem: 14232
+[03/27 22:30:32.373]: Epoch: [0]  [316/317]  eta: 0:00:00    time: 8.58E-02  data: 1.73E-04  max mem: 14232
+[03/27 22:30:32.601]: Epoch: [0] Total time: 0:00:27 (0.087734 s / it)
+[03/27 22:30:32.602]: => synchronize...
+[03/27 22:30:34.129]: Calculating mAP:
+[03/27 22:30:38.132]:   mAP: 0.05373596877386355
+[03/27 22:30:38.144]: 0 | Set best mAP 0.6184429796649724 in ep 0
+[03/27 22:30:38.144]:    | best regular mAP 0.6184429796649724 in ep 0
+{"train_lr": 4.308604968196703e-06, "train_all_loss": 55.810963675922835, "train_los_cls": 54.03124403795645, "train_loss_batch_en": 0.07926151848429866, "train_loss_sample_en": 1.7004581194820787, "train_los_cls_unscaled": 54.03124403795645, "train_loss_batch_en_unscaled": 0.07926151848429866, "train_loss_sample_en_unscaled": 1.7004581194820787, "train_wd": 0.009999999999999856, "test_loss": 61.93269204644491, "test_los_cls": 48.959280188363095, "test_loss_batch_en": 11.416834712028503, "test_loss_sample_en": 1.5565771460533142, "test_los_cls_unscaled": 48.959280188363095, "test_loss_batch_en_unscaled": 11.416834712028503, "test_loss_sample_en_unscaled": 1.5565771460533142, "test_ema_loss": 192.35392905438917, "test_ema_los_cls": 189.23095176781194, "test_ema_loss_batch_en": 1.3635873794555664, "test_ema_loss_sample_en": 1.7593899071216583, "test_ema_los_cls_unscaled": 189.23095176781194, "test_ema_loss_batch_en_unscaled": 1.3635873794555664, "test_ema_loss_sample_en_unscaled": 1.7593899071216583, "epoch": 0, "n_parameters": 117948561, "epoch_time": "0:04:45", "best_mAP": 0.6184429796649724, "best_regular_mAP": 0.6184429796649724}
+[03/27 22:30:40.204]: Training time 0:04:47
+[03/27 22:30:40.204]: Now time: 2024-03-27 22:30:40.204715
+[03/27 22:30:42.052]: Epoch: [1/80]  [  0/646]  eta: 0:11:07  lr: 4.925333e-06  all_loss: 43.6392 (43.6392)  los_cls: 41.9410 (41.9410)  loss_batch_en: 0.1079 (0.1079)  loss_sample_en: 1.5903 (1.5903)  los_cls_unscaled: 41.9410 (41.9410)  loss_batch_en_unscaled: 0.1079 (0.1079)  loss_sample_en_unscaled: 1.5903 (1.5903)  wd: 0.0100 (0.0100)  time: 1.03E+00  data: 6.79E-01  max mem: 14237
+[03/27 22:32:47.846]: Epoch: [1/80]  [400/646]  eta: 0:01:17  lr: 6.410541e-06  all_loss: 35.8648 (38.0935)  los_cls: 34.0870 (36.3756)  loss_batch_en: 0.2746 (0.1877)  loss_sample_en: 1.4728 (1.5302)  los_cls_unscaled: 34.0870 (36.3756)  loss_batch_en_unscaled: 0.2746 (0.1877)  loss_sample_en_unscaled: 1.4728 (1.5302)  wd: 0.0100 (0.0100)  time: 3.15E-01  data: 2.01E-04  max mem: 14237
+[03/27 22:34:04.707]: Epoch: [1/80]  [645/646]  eta: 0:00:00  lr: 7.654480e-06  all_loss: 34.3543 (36.9601)  los_cls: 32.6871 (35.2657)  loss_batch_en: 0.2231 (0.2006)  loss_sample_en: 1.4030 (1.4937)  los_cls_unscaled: 32.6871 (35.2657)  loss_batch_en_unscaled: 0.2231 (0.2006)  loss_sample_en_unscaled: 1.4030 (1.4937)  wd: 0.0100 (0.0100)  time: 3.08E-01  data: 1.48E-04  max mem: 14237
+[03/27 22:34:04.970]: Epoch: [1/80] Total time: 0:03:23 (0.315717 s / it)
+[03/27 22:34:07.085]: Epoch: [1]  [  0/317]  eta: 0:06:24    time: 1.21E+00  data: 5.95E-01  max mem: 14237
+[03/27 22:34:33.968]: Epoch: [1]  [316/317]  eta: 0:00:00    time: 8.64E-02  data: 1.53E-04  max mem: 14237
+[03/27 22:34:34.226]: Epoch: [1] Total time: 0:00:28 (0.089444 s / it)
+[03/27 22:34:34.227]: => synchronize...
+[03/27 22:34:35.713]: Calculating mAP:
+[03/27 22:34:39.808]:   mAP: 0.7368712827747121
+[03/27 22:34:41.282]: Epoch: [1]  [  0/317]  eta: 0:03:34    time: 6.77E-01  data: 5.99E-01  max mem: 14237
+[03/27 22:35:08.206]: Epoch: [1]  [316/317]  eta: 0:00:00    time: 8.62E-02  data: 1.65E-04  max mem: 14237
+[03/27 22:35:08.409]: Epoch: [1] Total time: 0:00:27 (0.087716 s / it)
+[03/27 22:35:08.410]: => synchronize...
+[03/27 22:35:09.984]: Calculating mAP:
+[03/27 22:35:13.978]:   mAP: 0.14254229628834741
+[03/27 22:35:13.989]: 1 | Set best mAP 0.7368712827747121 in ep 1
+[03/27 22:35:13.989]:    | best regular mAP 0.7368712827747121 in ep 1
+{"train_lr": 6.143140074116808e-06, "train_all_loss": 36.96007055348642, "train_los_cls": 35.26571690136603, "train_loss_batch_en": 0.20062417345519407, "train_loss_sample_en": 1.4937294786651807, "train_los_cls_unscaled": 35.26571690136603, "train_loss_batch_en_unscaled": 0.20062417345519407, "train_loss_sample_en_unscaled": 1.4937294786651807, "train_wd": 0.009999999999999856, "test_loss": 56.46085317960351, "test_los_cls": 38.71280505290597, "test_loss_batch_en": 16.38450002670288, "test_loss_sample_en": 1.3635480999946594, "test_los_cls_unscaled": 38.71280505290597, "test_loss_batch_en_unscaled": 16.38450002670288, "test_loss_sample_en_unscaled": 1.3635480999946594, "test_ema_loss": 176.11494602887097, "test_ema_los_cls": 173.03787102429334, "test_ema_loss_batch_en": 1.3164222240447998, "test_ema_loss_sample_en": 1.760652780532837, "test_ema_los_cls_unscaled": 173.03787102429334, "test_ema_loss_batch_en_unscaled": 1.3164222240447998, "test_ema_loss_sample_en_unscaled": 1.760652780532837, "epoch": 1, "n_parameters": 117948561, "epoch_time": "0:04:33", "best_mAP": 0.7368712827747121, "best_regular_mAP": 0.7368712827747121}
+[03/27 22:35:24.815]: Training time 0:09:32
+[03/27 22:35:24.816]: Now time: 2024-03-27 22:35:24.816101
+[03/27 22:35:27.422]: Epoch: [2/80]  [  0/646]  eta: 0:19:09  lr: 7.660067e-06  all_loss: 33.6779 (33.6779)  los_cls: 32.1497 (32.1497)  loss_batch_en: 0.1246 (0.1246)  loss_sample_en: 1.4036 (1.4036)  los_cls_unscaled: 32.1497 (32.1497)  loss_batch_en_unscaled: 0.1246 (0.1246)  loss_sample_en_unscaled: 1.4036 (1.4036)  wd: 0.0100 (0.0100)  time: 1.78E+00  data: 7.03E-01  max mem: 14237
+[03/27 22:37:33.729]: Epoch: [2/80]  [400/646]  eta: 0:01:18  lr: 1.021724e-05  all_loss: 31.6534 (32.7821)  los_cls: 30.1409 (31.1593)  loss_batch_en: 0.2433 (0.2724)  loss_sample_en: 1.3023 (1.3504)  los_cls_unscaled: 30.1409 (31.1593)  loss_batch_en_unscaled: 0.2433 (0.2724)  loss_sample_en_unscaled: 1.3023 (1.3504)  wd: 0.0100 (0.0100)  time: 3.15E-01  data: 1.80E-04  max mem: 14237
+[03/27 22:38:50.799]: Epoch: [2/80]  [645/646]  eta: 0:00:00  lr: 1.209098e-05  all_loss: 31.0238 (32.2403)  los_cls: 29.2814 (30.6281)  loss_batch_en: 0.3734 (0.2905)  loss_sample_en: 1.2577 (1.3217)  los_cls_unscaled: 29.2814 (30.6281)  loss_batch_en_unscaled: 0.3734 (0.2905)  loss_sample_en_unscaled: 1.2577 (1.3217)  wd: 0.0100 (0.0100)  time: 3.09E-01  data: 1.69E-04  max mem: 14237
+[03/27 22:38:51.032]: Epoch: [2/80] Total time: 0:03:25 (0.317942 s / it)
+[03/27 22:38:53.602]: Epoch: [2]  [  0/317]  eta: 0:04:53    time: 9.25E-01  data: 5.67E-01  max mem: 14237
+[03/27 22:39:20.671]: Epoch: [2]  [316/317]  eta: 0:00:00    time: 8.98E-02  data: 1.85E-04  max mem: 14237
+[03/27 22:39:20.879]: Epoch: [2] Total time: 0:00:28 (0.088969 s / it)
+[03/27 22:39:20.880]: => synchronize...
+[03/27 22:39:22.407]: Calculating mAP:
+[03/27 22:39:26.154]:   mAP: 0.7811341576569216
+[03/27 22:39:27.874]: Epoch: [2]  [  0/317]  eta: 0:04:51    time: 9.20E-01  data: 6.04E-01  max mem: 14237
+[03/27 22:39:54.754]: Epoch: [2]  [316/317]  eta: 0:00:00    time: 8.64E-02  data: 1.80E-04  max mem: 14237
+[03/27 22:39:54.999]: Epoch: [2] Total time: 0:00:28 (0.088474 s / it)
+[03/27 22:39:55.000]: => synchronize...
+[03/27 22:39:57.224]: Calculating mAP:
+[03/27 22:40:01.350]:   mAP: 0.37780259600020694
+[03/27 22:40:01.365]: 2 | Set best mAP 0.7811341576569216 in ep 2
+[03/27 22:40:01.365]:    | best regular mAP 0.7811341576569216 in ep 2
+{"train_lr": 9.740268536358956e-06, "train_all_loss": 32.2402952546352, "train_los_cls": 30.62811238089859, "train_loss_batch_en": 0.2904800392525853, "train_loss_sample_en": 1.3217028344840087, "train_los_cls_unscaled": 30.62811238089859, "train_loss_batch_en_unscaled": 0.2904800392525853, "train_loss_sample_en_unscaled": 1.3217028344840087, "train_wd": 0.009999999999999856, "test_loss": 55.19013464957243, "test_los_cls": 32.32583490520483, "test_loss_batch_en": 21.670499324798584, "test_loss_sample_en": 1.1938004195690155, "test_los_cls_unscaled": 32.32583490520483, "test_loss_batch_en_unscaled": 21.670499324798584, "test_loss_sample_en_unscaled": 1.1938004195690155, "test_ema_loss": 153.98716352637655, "test_ema_los_cls": 150.30206019934064, "test_ema_loss_batch_en": 1.9378095865249634, "test_ema_loss_sample_en": 1.7472937405109406, "test_ema_los_cls_unscaled": 150.30206019934064, "test_ema_loss_batch_en_unscaled": 1.9378095865249634, "test_ema_loss_sample_en_unscaled": 1.7472937405109406, "epoch": 2, "n_parameters": 117948561, "epoch_time": "0:04:36", "best_mAP": 0.7811341576569216, "best_regular_mAP": 0.7811341576569216}
+[03/27 22:40:12.085]: Training time 0:14:19
+[03/27 22:40:12.087]: Now time: 2024-03-27 22:40:12.087303
+[03/27 22:40:15.624]: Epoch: [3/80]  [  0/646]  eta: 0:23:06  lr: 1.209909e-05  all_loss: 32.7061 (32.7061)  los_cls: 30.9878 (30.9878)  loss_batch_en: 0.4736 (0.4736)  loss_sample_en: 1.2448 (1.2448)  los_cls_unscaled: 30.9878 (30.9878)  loss_batch_en_unscaled: 0.4736 (0.4736)  loss_sample_en_unscaled: 1.2448 (1.2448)  wd: 0.0100 (0.0100)  time: 2.15E+00  data: 6.54E-01  max mem: 14237
+[03/27 22:42:22.332]: Epoch: [3/80]  [400/646]  eta: 0:01:19  lr: 1.562994e-05  all_loss: 29.8762 (30.3374)  los_cls: 28.3982 (28.7382)  loss_batch_en: 0.3497 (0.3885)  loss_sample_en: 1.1807 (1.2107)  los_cls_unscaled: 28.3982 (28.7382)  loss_batch_en_unscaled: 0.3497 (0.3885)  loss_sample_en_unscaled: 1.1807 (1.2107)  wd: 0.0100 (0.0100)  time: 3.16E-01  data: 1.93E-04  max mem: 14237
+[03/27 22:43:45.322]: Epoch: [3/80]  [645/646]  eta: 0:00:00  lr: 1.806145e-05  all_loss: 29.3273 (30.0989)  los_cls: 27.7329 (28.5127)  loss_batch_en: 0.4058 (0.3969)  loss_sample_en: 1.1386 (1.1894)  los_cls_unscaled: 27.7329 (28.5127)  loss_batch_en_unscaled: 0.4058 (0.3969)  loss_sample_en_unscaled: 1.1386 (1.1894)  wd: 0.0100 (0.0100)  time: 4.64E-01  data: 1.88E-04  max mem: 14237
+[03/27 22:43:45.641]: Epoch: [3/80] Total time: 0:03:32 (0.328427 s / it)
+[03/27 22:43:49.224]: Epoch: [3]  [  0/317]  eta: 0:08:41    time: 1.65E+00  data: 5.35E-01  max mem: 14237
+[03/27 22:44:16.190]: Epoch: [3]  [316/317]  eta: 0:00:00    time: 8.61E-02  data: 1.57E-04  max mem: 14237
+[03/27 22:44:16.394]: Epoch: [3] Total time: 0:00:28 (0.090906 s / it)
+[03/27 22:44:16.395]: => synchronize...
+[03/27 22:44:18.010]: Calculating mAP:
+[03/27 22:44:22.058]:   mAP: 0.8007626009415251
+[03/27 22:44:23.588]: Epoch: [3]  [  0/317]  eta: 0:04:08    time: 7.83E-01  data: 6.18E-01  max mem: 14237
+[03/27 22:44:50.522]: Epoch: [3]  [316/317]  eta: 0:00:00    time: 8.59E-02  data: 1.61E-04  max mem: 14237
+[03/27 22:44:50.758]: Epoch: [3] Total time: 0:00:27 (0.088186 s / it)
+[03/27 22:44:50.759]: => synchronize...
+[03/27 22:44:52.310]: Calculating mAP:
+[03/27 22:44:56.284]:   mAP: 0.5632498024215626
+[03/27 22:44:56.296]: 3 | Set best mAP 0.8007626009415251 in ep 3
+[03/27 22:44:56.296]:    | best regular mAP 0.8007626009415251 in ep 3
+{"train_lr": 1.4961728059169918e-05, "train_all_loss": 30.09889744740684, "train_los_cls": 28.512666130300975, "train_loss_batch_en": 0.3968544511972197, "train_loss_sample_en": 1.189376865908642, "train_los_cls_unscaled": 28.512666130300975, "train_loss_batch_en_unscaled": 0.3968544511972197, "train_loss_sample_en_unscaled": 1.189376865908642, "train_wd": 0.009999999999999856, "test_loss": 52.20207874816711, "test_los_cls": 32.83641819995697, "test_loss_batch_en": 18.234264612197876, "test_loss_sample_en": 1.131395936012268, "test_los_cls_unscaled": 32.83641819995697, "test_loss_batch_en_unscaled": 18.234264612197876, "test_loss_sample_en_unscaled": 1.131395936012268, "test_ema_loss": 126.77913478626199, "test_ema_los_cls": 121.68017960204072, "test_ema_loss_batch_en": 3.386446952819824, "test_ema_loss_sample_en": 1.7125082314014435, "test_ema_los_cls_unscaled": 121.68017960204072, "test_ema_loss_batch_en_unscaled": 3.386446952819824, "test_ema_loss_sample_en_unscaled": 1.7125082314014435, "epoch": 3, "n_parameters": 117948561, "epoch_time": "0:04:44", "best_mAP": 0.8007626009415251, "best_regular_mAP": 0.8007626009415251}
+[03/27 22:45:06.338]: Training time 0:19:13
+[03/27 22:45:06.339]: Now time: 2024-03-27 22:45:06.339812
+[03/27 22:45:08.616]: Epoch: [4/80]  [  0/646]  eta: 0:15:55  lr: 1.807177e-05  all_loss: 28.9109 (28.9109)  los_cls: 27.5158 (27.5158)  loss_batch_en: 0.2459 (0.2459)  loss_sample_en: 1.1492 (1.1492)  los_cls_unscaled: 27.5158 (27.5158)  loss_batch_en_unscaled: 0.2459 (0.2459)  loss_sample_en_unscaled: 1.1492 (1.1492)  wd: 0.0100 (0.0100)  time: 1.48E+00  data: 6.55E-01  max mem: 14237
+[03/27 22:47:16.739]: Epoch: [4/80]  [400/646]  eta: 0:01:19  lr: 2.244058e-05  all_loss: 28.9963 (28.8084)  los_cls: 27.5737 (27.2379)  loss_batch_en: 0.4150 (0.4571)  loss_sample_en: 1.0815 (1.1134)  los_cls_unscaled: 27.5737 (27.2379)  loss_batch_en_unscaled: 0.4150 (0.4571)  loss_sample_en_unscaled: 1.0815 (1.1134)  wd: 0.0100 (0.0100)  time: 3.14E-01  data: 1.85E-04  max mem: 14237
+[03/27 22:48:33.934]: Epoch: [4/80]  [645/646]  eta: 0:00:00  lr: 2.533642e-05  all_loss: 28.5837 (28.7059)  los_cls: 27.1915 (27.1491)  loss_batch_en: 0.4098 (0.4553)  loss_sample_en: 1.0883 (1.1015)  los_cls_unscaled: 27.1915 (27.1491)  loss_batch_en_unscaled: 0.4098 (0.4553)  loss_sample_en_unscaled: 1.0883 (1.1015)  wd: 0.0100 (0.0100)  time: 3.08E-01  data: 1.53E-04  max mem: 14237
+[03/27 22:48:34.203]: Epoch: [4/80] Total time: 0:03:27 (0.320537 s / it)
+[03/27 22:48:35.896]: Epoch: [4]  [  0/317]  eta: 0:04:14    time: 8.03E-01  data: 5.93E-01  max mem: 14237
+[03/27 22:49:02.897]: Epoch: [4]  [316/317]  eta: 0:00:00    time: 8.66E-02  data: 1.67E-04  max mem: 14237
+[03/27 22:49:03.110]: Epoch: [4] Total time: 0:00:28 (0.088383 s / it)
+[03/27 22:49:03.111]: => synchronize...
+[03/27 22:49:04.725]: Calculating mAP:
+[03/27 22:49:08.683]:   mAP: 0.8108461938719508
+[03/27 22:49:10.447]: Epoch: [4]  [  0/317]  eta: 0:05:16    time: 9.99E-01  data: 9.20E-01  max mem: 14237
+[03/27 22:49:37.342]: Epoch: [4]  [316/317]  eta: 0:00:00    time: 8.57E-02  data: 1.79E-04  max mem: 14237
+[03/27 22:49:37.575]: Epoch: [4] Total time: 0:00:28 (0.088732 s / it)
+[03/27 22:49:37.576]: => synchronize...
+[03/27 22:49:39.242]: Calculating mAP:
+[03/27 22:49:43.201]:   mAP: 0.6492630482744023
+[03/27 22:49:43.213]: 4 | Set best mAP 0.8108461938719508 in ep 4
+[03/27 22:49:43.213]:    | best regular mAP 0.8108461938719508 in ep 4
+{"train_lr": 2.160682217357903e-05, "train_all_loss": 28.70592247648829, "train_los_cls": 27.149062472602626, "train_loss_batch_en": 0.4553286975751351, "train_loss_sample_en": 1.1015313063105194, "train_los_cls_unscaled": 27.149062472602626, "train_loss_batch_en_unscaled": 0.4553286975751351, "train_loss_sample_en_unscaled": 1.1015313063105194, "train_wd": 0.009999999999999856, "test_loss": 51.561338171780335, "test_los_cls": 31.51266090613626, "test_loss_batch_en": 18.934571981430054, "test_loss_sample_en": 1.1141052842140198, "test_los_cls_unscaled": 31.51266090613626, "test_loss_batch_en_unscaled": 18.934571981430054, "test_loss_sample_en_unscaled": 1.1141052842140198, "test_ema_loss": 99.34183128665067, "test_ema_los_cls": 92.18137841413595, "test_ema_loss_batch_en": 5.504888296127319, "test_ema_loss_sample_en": 1.6555645763874054, "test_ema_los_cls_unscaled": 92.18137841413595, "test_ema_loss_batch_en_unscaled": 5.504888296127319, "test_ema_loss_sample_en_unscaled": 1.6555645763874054, "epoch": 4, "n_parameters": 117948561, "epoch_time": "0:04:36", "best_mAP": 0.8108461938719508, "best_regular_mAP": 0.8108461938719508}
+[03/27 22:49:53.747]: Training time 0:24:01
+[03/27 22:49:53.749]: Now time: 2024-03-27 22:49:53.749131
+[03/27 22:49:55.768]: Epoch: [5/80]  [  0/646]  eta: 0:12:51  lr: 2.534855e-05  all_loss: 25.8015 (25.8015)  los_cls: 24.4080 (24.4080)  loss_batch_en: 0.2731 (0.2731)  loss_sample_en: 1.1205 (1.1205)  los_cls_unscaled: 24.4080 (24.4080)  loss_batch_en_unscaled: 0.2731 (0.2731)  loss_sample_en_unscaled: 1.1205 (1.1205)  wd: 0.0100 (0.0100)  time: 1.19E+00  data: 7.94E-01  max mem: 14237
+[03/27 22:52:04.532]: Epoch: [5/80]  [400/646]  eta: 0:01:19  lr: 3.038740e-05  all_loss: 26.9089 (27.7509)  los_cls: 25.3349 (26.2427)  loss_batch_en: 0.3967 (0.4331)  loss_sample_en: 1.0234 (1.0751)  los_cls_unscaled: 25.3349 (26.2427)  loss_batch_en_unscaled: 0.3967 (0.4331)  loss_sample_en_unscaled: 1.0234 (1.0751)  wd: 0.0100 (0.0100)  time: 3.19E-01  data: 1.91E-04  max mem: 14237
+[03/27 22:53:22.445]: Epoch: [5/80]  [645/646]  eta: 0:00:00  lr: 3.363625e-05  all_loss: 28.1886 (27.7808)  los_cls: 26.8130 (26.2852)  loss_batch_en: 0.3884 (0.4410)  loss_sample_en: 1.0209 (1.0547)  los_cls_unscaled: 26.8130 (26.2852)  loss_batch_en_unscaled: 0.3884 (0.4410)  loss_sample_en_unscaled: 1.0209 (1.0547)  wd: 0.0100 (0.0100)  time: 3.18E-01  data: 1.93E-04  max mem: 14237
+[03/27 22:53:22.736]: Epoch: [5/80] Total time: 0:03:28 (0.322236 s / it)
+[03/27 22:53:24.826]: Epoch: [5]  [  0/317]  eta: 0:07:07    time: 1.35E+00  data: 8.17E-01  max mem: 14237
+[03/27 22:53:51.897]: Epoch: [5]  [316/317]  eta: 0:00:00    time: 8.63E-02  data: 1.73E-04  max mem: 14237
+[03/27 22:53:52.106]: Epoch: [5] Total time: 0:00:28 (0.090311 s / it)
+[03/27 22:53:52.107]: => synchronize...
+[03/27 22:53:53.772]: Calculating mAP:
+[03/27 22:53:57.520]:   mAP: 0.8161294654685701
+[03/27 22:53:59.081]: Epoch: [5]  [  0/317]  eta: 0:04:58    time: 9.43E-01  data: 5.71E-01  max mem: 14237
+[03/27 22:54:26.224]: Epoch: [5]  [316/317]  eta: 0:00:00    time: 8.74E-02  data: 1.54E-04  max mem: 14237
+[03/27 22:54:26.450]: Epoch: [5] Total time: 0:00:28 (0.089313 s / it)
+[03/27 22:54:26.451]: => synchronize...
+[03/27 22:54:28.058]: Calculating mAP:
+[03/27 22:54:31.919]:   mAP: 0.7037222801404547
+[03/27 22:54:31.931]: 5 | Set best mAP 0.8161294654685701 in ep 5
+[03/27 22:54:31.932]:    | best regular mAP 0.8161294654685701 in ep 5
+{"train_lr": 2.9420134377952162e-05, "train_all_loss": 27.78084208170391, "train_los_cls": 26.285169567901, "train_loss_batch_en": 0.4409787455579445, "train_loss_sample_en": 1.0546937682449633, "train_los_cls_unscaled": 26.285169567901, "train_loss_batch_en_unscaled": 0.4409787455579445, "train_loss_sample_en_unscaled": 1.0546937682449633, "train_wd": 0.009999999999999856, "test_loss": 50.491966812020166, "test_los_cls": 31.087888939386232, "test_loss_batch_en": 18.326308965682983, "test_loss_sample_en": 1.0777689069509506, "test_los_cls_unscaled": 31.087888939386232, "test_loss_batch_en_unscaled": 18.326308965682983, "test_loss_sample_en_unscaled": 1.0777689069509506, "test_ema_loss": 77.89128071264405, "test_ema_los_cls": 68.15079355434555, "test_ema_loss_batch_en": 8.16100537776947, "test_ema_loss_sample_en": 1.5794817805290222, "test_ema_los_cls_unscaled": 68.15079355434555, "test_ema_loss_batch_en_unscaled": 8.16100537776947, "test_ema_loss_sample_en_unscaled": 1.5794817805290222, "epoch": 5, "n_parameters": 117948561, "epoch_time": "0:04:38", "best_mAP": 0.8161294654685701, "best_regular_mAP": 0.8161294654685701}
+[03/27 22:54:42.899]: Training time 0:28:50
+[03/27 22:54:42.900]: Now time: 2024-03-27 22:54:42.900290
+[03/27 22:54:44.605]: Epoch: [6/80]  [  0/646]  eta: 0:11:01  lr: 3.364973e-05  all_loss: 27.9128 (27.9128)  los_cls: 26.5480 (26.5480)  loss_batch_en: 0.3213 (0.3213)  loss_sample_en: 1.0435 (1.0435)  los_cls_unscaled: 26.5480 (26.5480)  loss_batch_en_unscaled: 0.3213 (0.3213)  loss_sample_en_unscaled: 1.0435 (1.0435)  wd: 0.0100 (0.0100)  time: 1.02E+00  data: 6.48E-01  max mem: 14237
+[03/27 22:56:52.369]: Epoch: [6/80]  [400/646]  eta: 0:01:19  lr: 3.916494e-05  all_loss: 26.7191 (26.8492)  los_cls: 25.2751 (25.4021)  loss_batch_en: 0.3751 (0.4509)  loss_sample_en: 0.9756 (0.9962)  los_cls_unscaled: 25.2751 (25.4021)  loss_batch_en_unscaled: 0.3751 (0.4509)  loss_sample_en_unscaled: 0.9756 (0.9962)  wd: 0.0100 (0.0100)  time: 3.22E-01  data: 2.08E-04  max mem: 14237
+[03/27 22:58:10.672]: Epoch: [6/80]  [645/646]  eta: 0:00:00  lr: 4.264193e-05  all_loss: 26.6572 (26.9711)  los_cls: 24.9351 (25.5358)  loss_batch_en: 0.5456 (0.4410)  loss_sample_en: 0.9682 (0.9943)  los_cls_unscaled: 24.9351 (25.5358)  loss_batch_en_unscaled: 0.5456 (0.4410)  loss_sample_en_unscaled: 0.9682 (0.9943)  wd: 0.0100 (0.0100)  time: 3.24E-01  data: 2.09E-04  max mem: 14237
+[03/27 22:58:10.965]: Epoch: [6/80] Total time: 0:03:27 (0.321029 s / it)
+[03/27 22:58:13.660]: Epoch: [6]  [  0/317]  eta: 0:05:42    time: 1.08E+00  data: 5.95E-01  max mem: 14237
+[03/27 22:58:40.963]: Epoch: [6]  [316/317]  eta: 0:00:00    time: 8.68E-02  data: 1.74E-04  max mem: 14237
+[03/27 22:58:41.200]: Epoch: [6] Total time: 0:00:28 (0.090291 s / it)
+[03/27 22:58:41.201]: => synchronize...
+[03/27 22:58:42.978]: Calculating mAP:
+[03/27 22:58:46.992]:   mAP: 0.8175326840730271
+[03/27 22:58:48.470]: Epoch: [6]  [  0/317]  eta: 0:03:43    time: 7.04E-01  data: 6.16E-01  max mem: 14237
+[03/27 22:59:15.453]: Epoch: [6]  [316/317]  eta: 0:00:00    time: 8.59E-02  data: 1.95E-04  max mem: 14237
+[03/27 22:59:15.675]: Epoch: [6] Total time: 0:00:27 (0.088043 s / it)
+[03/27 22:59:15.676]: => synchronize...
+[03/27 22:59:17.248]: Calculating mAP:
+[03/27 22:59:21.066]:   mAP: 0.744020148481957
+[03/27 22:59:21.080]: 6 | Set best mAP 0.8175326840730271 in ep 6
+[03/27 22:59:21.080]:    | best regular mAP 0.8175326840730271 in ep 6
+{"train_lr": 3.810134554436484e-05, "train_all_loss": 26.971091341507005, "train_los_cls": 25.535780489343868, "train_loss_batch_en": 0.44097763373755816, "train_loss_sample_en": 0.9943332184256046, "train_los_cls_unscaled": 25.535780489343868, "train_loss_batch_en_unscaled": 0.44097763373755816, "train_loss_sample_en_unscaled": 0.9943332184256046, "train_wd": 0.009999999999999856, "test_loss": 55.12193620332596, "test_los_cls": 31.229927287782402, "test_loss_batch_en": 22.915447235107422, "test_loss_sample_en": 0.9765616804361343, "test_los_cls_unscaled": 31.229927287782402, "test_loss_batch_en_unscaled": 22.915447235107422, "test_loss_sample_en_unscaled": 0.9765616804361343, "test_ema_loss": 64.65719469271716, "test_ema_los_cls": 52.14956207953509, "test_ema_loss_batch_en": 11.01851761341095, "test_ema_loss_sample_en": 1.4891149997711182, "test_ema_los_cls_unscaled": 52.14956207953509, "test_ema_loss_batch_en_unscaled": 11.01851761341095, "test_ema_loss_sample_en_unscaled": 1.4891149997711182, "epoch": 6, "n_parameters": 117948561, "epoch_time": "0:04:38", "best_mAP": 0.8175326840730271, "best_regular_mAP": 0.8175326840730271}
+[03/27 22:59:31.554]: Training time 0:33:38
+[03/27 22:59:31.555]: Now time: 2024-03-27 22:59:31.555028
+[03/27 22:59:33.457]: Epoch: [7/80]  [  0/646]  eta: 0:11:48  lr: 4.265624e-05  all_loss: 24.1118 (24.1118)  los_cls: 22.4545 (22.4545)  loss_batch_en: 0.6956 (0.6956)  loss_sample_en: 0.9616 (0.9616)  los_cls_unscaled: 22.4545 (22.4545)  loss_batch_en_unscaled: 0.6956 (0.6956)  loss_sample_en_unscaled: 0.9616 (0.9616)  wd: 0.0100 (0.0100)  time: 1.10E+00  data: 7.15E-01  max mem: 14238
+[03/27 23:01:39.889]: Epoch: [7/80]  [400/646]  eta: 0:01:18  lr: 4.843582e-05  all_loss: 25.4210 (26.3463)  los_cls: 24.1289 (24.9205)  loss_batch_en: 0.3815 (0.4652)  loss_sample_en: 0.9422 (0.9606)  los_cls_unscaled: 24.1289 (24.9205)  loss_batch_en_unscaled: 0.3815 (0.4652)  loss_sample_en_unscaled: 0.9422 (0.9606)  wd: 0.0100 (0.0100)  time: 3.18E-01  data: 1.84E-04  max mem: 14238
+[03/27 23:02:57.078]: Epoch: [7/80]  [645/646]  eta: 0:00:00  lr: 5.200730e-05  all_loss: 26.6523 (26.5642)  los_cls: 25.2082 (25.1512)  loss_batch_en: 0.4178 (0.4596)  loss_sample_en: 0.9390 (0.9534)  los_cls_unscaled: 25.2082 (25.1512)  loss_batch_en_unscaled: 0.4178 (0.4596)  loss_sample_en_unscaled: 0.9390 (0.9534)  wd: 0.0100 (0.0100)  time: 3.09E-01  data: 1.63E-04  max mem: 14238
+[03/27 23:02:57.321]: Epoch: [7/80] Total time: 0:03:24 (0.317279 s / it)
+[03/27 23:02:59.239]: Epoch: [7]  [  0/317]  eta: 0:05:19    time: 1.01E+00  data: 9.10E-01  max mem: 14238
+[03/27 23:03:26.172]: Epoch: [7]  [316/317]  eta: 0:00:00    time: 8.58E-02  data: 1.60E-04  max mem: 14238
+[03/27 23:03:26.434]: Epoch: [7] Total time: 0:00:28 (0.088969 s / it)
+[03/27 23:03:26.435]: => synchronize...
+[03/27 23:03:28.073]: Calculating mAP:
+[03/27 23:03:32.023]:   mAP: 0.8223303131418845
+[03/27 23:03:33.686]: Epoch: [7]  [  0/317]  eta: 0:04:46    time: 9.05E-01  data: 5.69E-01  max mem: 14238
+[03/27 23:04:00.558]: Epoch: [7]  [316/317]  eta: 0:00:00    time: 8.63E-02  data: 1.77E-04  max mem: 14238
+[03/27 23:04:00.812]: Epoch: [7] Total time: 0:00:28 (0.088431 s / it)
+[03/27 23:04:00.813]: => synchronize...
+[03/27 23:04:02.358]: Calculating mAP:
+[03/27 23:04:06.070]:   mAP: 0.7744956084763885
+[03/27 23:04:06.084]: 7 | Set best mAP 0.8223303131418845 in ep 7
+[03/27 23:04:06.084]:    | best regular mAP 0.8223303131418845 in ep 7
+{"train_lr": 4.731677724059379e-05, "train_all_loss": 26.56420601445789, "train_los_cls": 25.151199670080267, "train_loss_batch_en": 0.45955965854804215, "train_loss_sample_en": 0.9534466858295834, "train_los_cls_unscaled": 25.151199670080267, "train_loss_batch_en_unscaled": 0.45955965854804215, "train_loss_sample_en_unscaled": 0.9534466858295834, "train_wd": 0.009999999999999856, "test_loss": 57.111252964565935, "test_los_cls": 33.62409672243375, "test_loss_batch_en": 22.52212429046631, "test_loss_sample_en": 0.9650319516658783, "test_los_cls_unscaled": 33.62409672243375, "test_loss_batch_en_unscaled": 22.52212429046631, "test_loss_sample_en_unscaled": 0.9650319516658783, "test_ema_loss": 57.511406950282414, "test_ema_los_cls": 42.37154453210767, "test_ema_loss_batch_en": 13.745206475257874, "test_ema_loss_sample_en": 1.3946559429168701, "test_ema_los_cls_unscaled": 42.37154453210767, "test_ema_loss_batch_en_unscaled": 13.745206475257874, "test_ema_loss_sample_en_unscaled": 1.3946559429168701, "epoch": 7, "n_parameters": 117948561, "epoch_time": "0:04:34", "best_mAP": 0.8223303131418845, "best_regular_mAP": 0.8223303131418845}
+[03/27 23:04:16.612]: Training time 0:38:24
+[03/27 23:04:16.613]: Now time: 2024-03-27 23:04:16.613391
+[03/27 23:04:18.680]: Epoch: [8/80]  [  0/646]  eta: 0:13:37  lr: 5.202189e-05  all_loss: 28.1378 (28.1378)  los_cls: 26.7638 (26.7638)  loss_batch_en: 0.5277 (0.5277)  loss_sample_en: 0.8463 (0.8463)  los_cls_unscaled: 26.7638 (26.7638)  loss_batch_en_unscaled: 0.5277 (0.5277)  loss_sample_en_unscaled: 0.8463 (0.8463)  wd: 0.0100 (0.0100)  time: 1.27E+00  data: 9.07E-01  max mem: 14238
+[03/27 23:06:24.845]: Epoch: [8/80]  [400/646]  eta: 0:01:18  lr: 5.784369e-05  all_loss: 26.3575 (26.0297)  los_cls: 24.9960 (24.6415)  loss_batch_en: 0.4340 (0.4534)  loss_sample_en: 0.9076 (0.9348)  los_cls_unscaled: 24.9960 (24.6415)  loss_batch_en_unscaled: 0.4340 (0.4534)  loss_sample_en_unscaled: 0.9076 (0.9348)  wd: 0.0100 (0.0100)  time: 3.15E-01  data: 1.87E-04  max mem: 14238
+[03/27 23:07:42.020]: Epoch: [8/80]  [645/646]  eta: 0:00:00  lr: 6.137238e-05  all_loss: 24.8145 (26.0886)  los_cls: 23.4552 (24.7075)  loss_batch_en: 0.3835 (0.4505)  loss_sample_en: 0.9412 (0.9305)  los_cls_unscaled: 23.4552 (24.7075)  loss_batch_en_unscaled: 0.3835 (0.4505)  loss_sample_en_unscaled: 0.9412 (0.9305)  wd: 0.0100 (0.0100)  time: 3.09E-01  data: 1.90E-04  max mem: 14238
+[03/27 23:07:42.277]: Epoch: [8/80] Total time: 0:03:24 (0.317125 s / it)
+[03/27 23:07:44.018]: Epoch: [8]  [  0/317]  eta: 0:04:27    time: 8.44E-01  data: 5.81E-01  max mem: 14238
+[03/27 23:08:10.873]: Epoch: [8]  [316/317]  eta: 0:00:00    time: 8.58E-02  data: 1.55E-04  max mem: 14238
+[03/27 23:08:11.060]: Epoch: [8] Total time: 0:00:27 (0.087976 s / it)
+[03/27 23:08:11.061]: => synchronize...
+[03/27 23:08:12.718]: Calculating mAP:
+[03/27 23:08:16.594]:   mAP: 0.8201326623252058
+[03/27 23:08:18.195]: Epoch: [8]  [  0/317]  eta: 0:04:26    time: 8.39E-01  data: 5.90E-01  max mem: 14238
+[03/27 23:08:44.977]: Epoch: [8]  [316/317]  eta: 0:00:00    time: 8.60E-02  data: 1.46E-04  max mem: 14238
+[03/27 23:08:45.175]: Epoch: [8] Total time: 0:00:27 (0.087761 s / it)
+[03/27 23:08:45.176]: => synchronize...
+[03/27 23:08:47.516]: Calculating mAP:
+[03/27 23:08:51.472]:   mAP: 0.7972508967375547
+[03/27 23:08:51.484]: 8 | Set best mAP 0.8223303131418845 in ep 7
+[03/27 23:08:51.484]:    | best regular mAP 0.8223303131418845 in ep 7
+{"train_lr": 5.671221727876436e-05, "train_all_loss": 26.08855376003246, "train_los_cls": 24.707454873340165, "train_loss_batch_en": 0.4505499597673446, "train_loss_sample_en": 0.9305489269249579, "train_los_cls_unscaled": 24.707454873340165, "train_loss_batch_en_unscaled": 0.4505499597673446, "train_loss_sample_en_unscaled": 0.9305489269249579, "train_wd": 0.009999999999999856, "test_loss": 52.21904626810027, "test_los_cls": 30.816379371518625, "test_loss_batch_en": 20.487651348114014, "test_loss_sample_en": 0.9150155484676361, "test_los_cls_unscaled": 30.816379371518625, "test_loss_batch_en_unscaled": 20.487651348114014, "test_loss_sample_en_unscaled": 0.9150155484676361, "test_ema_loss": 53.755736809596364, "test_ema_los_cls": 36.4967182990163, "test_ema_loss_batch_en": 15.953621625900269, "test_ema_loss_sample_en": 1.3053968846797943, "test_ema_los_cls_unscaled": 36.4967182990163, "test_ema_loss_batch_en_unscaled": 15.953621625900269, "test_ema_loss_sample_en_unscaled": 1.3053968846797943, "epoch": 8, "n_parameters": 117948561, "epoch_time": "0:04:34", "best_mAP": 0.8223303131418845, "best_regular_mAP": 0.8223303131418845}
+[03/27 23:08:51.485]: Training time 0:42:58
+[03/27 23:08:51.485]: Now time: 2024-03-27 23:08:51.485860
+[03/27 23:08:53.703]: Epoch: [9/80]  [  0/646]  eta: 0:15:17  lr: 6.138669e-05  all_loss: 22.5461 (22.5461)  los_cls: 20.7398 (20.7398)  loss_batch_en: 0.9932 (0.9932)  loss_sample_en: 0.8130 (0.8130)  los_cls_unscaled: 20.7398 (20.7398)  loss_batch_en_unscaled: 0.9932 (0.9932)  loss_sample_en_unscaled: 0.8130 (0.8130)  wd: 0.0100 (0.0100)  time: 1.42E+00  data: 8.79E-01  max mem: 14238
+[03/27 23:10:59.968]: Epoch: [9/80]  [400/646]  eta: 0:01:18  lr: 6.702695e-05  all_loss: 26.4464 (25.5528)  los_cls: 25.0935 (24.2036)  loss_batch_en: 0.4385 (0.4376)  loss_sample_en: 0.9178 (0.9116)  los_cls_unscaled: 25.0935 (24.2036)  loss_batch_en_unscaled: 0.4385 (0.4376)  loss_sample_en_unscaled: 0.9178 (0.9116)  wd: 0.0100 (0.0100)  time: 3.15E-01  data: 1.68E-04  max mem: 14238
+[03/27 23:12:22.108]: Epoch: [9/80]  [645/646]  eta: 0:00:00  lr: 7.037723e-05  all_loss: 26.2449 (25.8250)  los_cls: 24.8005 (24.4825)  loss_batch_en: 0.3866 (0.4384)  loss_sample_en: 0.8770 (0.9040)  los_cls_unscaled: 24.8005 (24.4825)  loss_batch_en_unscaled: 0.3866 (0.4384)  loss_sample_en_unscaled: 0.8770 (0.9040)  wd: 0.0100 (0.0100)  time: 3.09E-01  data: 1.47E-04  max mem: 14238
+[03/27 23:12:22.352]: Epoch: [9/80] Total time: 0:03:30 (0.325186 s / it)
+[03/27 23:12:24.053]: Epoch: [9]  [  0/317]  eta: 0:04:33    time: 8.64E-01  data: 6.05E-01  max mem: 14238
+[03/27 23:12:50.877]: Epoch: [9]  [316/317]  eta: 0:00:00    time: 8.71E-02  data: 1.46E-04  max mem: 14238
+[03/27 23:12:51.096]: Epoch: [9] Total time: 0:00:27 (0.088040 s / it)
+[03/27 23:12:51.097]: => synchronize...
+[03/27 23:12:52.694]: Calculating mAP:
+[03/27 23:12:56.309]:   mAP: 0.8214398760488641
+[03/27 23:12:57.929]: Epoch: [9]  [  0/317]  eta: 0:04:40    time: 8.85E-01  data: 6.08E-01  max mem: 14238
+[03/27 23:13:24.784]: Epoch: [9]  [316/317]  eta: 0:00:00    time: 8.63E-02  data: 1.65E-04  max mem: 14238
+[03/27 23:13:25.086]: Epoch: [9] Total time: 0:00:28 (0.088461 s / it)
+[03/27 23:13:25.087]: => synchronize...
+[03/27 23:13:26.656]: Calculating mAP:
+[03/27 23:13:30.553]:   mAP: 0.8147233483741292
+[03/27 23:13:30.564]: 9 | Set best mAP 0.8223303131418845 in ep 7
+[03/27 23:13:30.564]:    | best regular mAP 0.8223303131418845 in ep 7
+{"train_lr": 6.59265345169325e-05, "train_all_loss": 25.824963949582784, "train_los_cls": 24.482547424972502, "train_loss_batch_en": 0.4383876596811017, "train_loss_sample_en": 0.9040288649291816, "train_los_cls_unscaled": 24.482547424972502, "train_loss_batch_en_unscaled": 0.4383876596811017, "train_loss_sample_en_unscaled": 0.9040288649291816, "train_wd": 0.009999999999999856, "test_loss": 52.373495396515786, "test_los_cls": 30.830841299435555, "test_loss_batch_en": 20.61339044570923, "test_loss_sample_en": 0.9292636513710022, "test_los_cls_unscaled": 30.830841299435555, "test_loss_batch_en_unscaled": 20.61339044570923, "test_loss_sample_en_unscaled": 0.9292636513710022, "test_ema_loss": 51.408941476659024, "test_ema_los_cls": 32.705119400338376, "test_ema_loss_batch_en": 17.47489595413208, "test_ema_loss_sample_en": 1.2289261221885681, "test_ema_los_cls_unscaled": 32.705119400338376, "test_ema_loss_batch_en_unscaled": 17.47489595413208, "test_ema_loss_sample_en_unscaled": 1.2289261221885681, "epoch": 9, "n_parameters": 117948561, "epoch_time": "0:04:39", "best_mAP": 0.8223303131418845, "best_regular_mAP": 0.8223303131418845}
+[03/27 23:13:30.565]: Training time 0:47:38
+[03/27 23:13:30.565]: Now time: 2024-03-27 23:13:30.565647
+[03/27 23:13:32.809]: Epoch: [10/80]  [  0/646]  eta: 0:15:12  lr: 7.039071e-05  all_loss: 26.3128 (26.3128)  los_cls: 25.0205 (25.0205)  loss_batch_en: 0.4727 (0.4727)  loss_sample_en: 0.8197 (0.8197)  los_cls_unscaled: 25.0205 (25.0205)  loss_batch_en_unscaled: 0.4727 (0.4727)  loss_sample_en_unscaled: 0.8197 (0.8197)  wd: 0.0100 (0.0100)  time: 1.41E+00  data: 1.01E+00  max mem: 14238
+[03/27 23:15:40.955]: Epoch: [10/80]  [400/646]  eta: 0:01:19  lr: 7.563263e-05  all_loss: 25.6875 (25.3004)  los_cls: 24.2980 (23.9696)  loss_batch_en: 0.4014 (0.4332)  loss_sample_en: 0.8954 (0.8977)  los_cls_unscaled: 24.2980 (23.9696)  loss_batch_en_unscaled: 0.4014 (0.4332)  loss_sample_en_unscaled: 0.8954 (0.8977)  wd: 0.0100 (0.0100)  time: 3.14E-01  data: 1.75E-04  max mem: 14238
+[03/27 23:16:58.114]: Epoch: [10/80]  [645/646]  eta: 0:00:00  lr: 7.867571e-05  all_loss: 27.0591 (25.5129)  los_cls: 25.8667 (24.1765)  loss_batch_en: 0.5556 (0.4481)  loss_sample_en: 0.8486 (0.8883)  los_cls_unscaled: 25.8667 (24.1765)  loss_batch_en_unscaled: 0.5556 (0.4481)  loss_sample_en_unscaled: 0.8486 (0.8883)  wd: 0.0100 (0.0100)  time: 3.14E-01  data: 1.41E-04  max mem: 14238
+[03/27 23:16:58.308]: Epoch: [10/80] Total time: 0:03:26 (0.320296 s / it)
+[03/27 23:17:00.073]: Epoch: [10]  [  0/317]  eta: 0:04:25    time: 8.37E-01  data: 7.60E-01  max mem: 14238
+[03/27 23:17:27.027]: Epoch: [10]  [316/317]  eta: 0:00:00    time: 8.69E-02  data: 1.40E-04  max mem: 14238
+[03/27 23:17:27.262]: Epoch: [10] Total time: 0:00:28 (0.088411 s / it)
+[03/27 23:17:27.262]: => synchronize...
+[03/27 23:17:28.877]: Calculating mAP:
+[03/27 23:17:32.773]:   mAP: 0.8192481532461586
+[03/27 23:17:34.314]: Epoch: [10]  [  0/317]  eta: 0:04:14    time: 8.02E-01  data: 6.06E-01  max mem: 14238
+[03/27 23:18:01.180]: Epoch: [10]  [316/317]  eta: 0:00:00    time: 8.67E-02  data: 1.57E-04  max mem: 14238
+[03/27 23:18:01.361]: Epoch: [10] Total time: 0:00:27 (0.087856 s / it)
+[03/27 23:18:01.362]: => synchronize...
+[03/27 23:18:02.950]: Calculating mAP:
+[03/27 23:18:06.638]:   mAP: 0.8275470494349755
+[03/27 23:18:06.650]: 10 | Set best mAP 0.8275470494349755 in ep 10
+[03/27 23:18:06.650]:    | best regular mAP 0.8223303131418845 in ep 7
+{"train_lr": 7.460555960348327e-05, "train_all_loss": 25.512942073572397, "train_los_cls": 24.17650448061481, "train_loss_batch_en": 0.44811471789244894, "train_loss_sample_en": 0.8883228750651466, "train_los_cls_unscaled": 24.17650448061481, "train_loss_batch_en_unscaled": 0.44811471789244894, "train_loss_sample_en_unscaled": 0.8883228750651466, "train_wd": 0.009999999999999856, "test_loss": 58.821698396364894, "test_los_cls": 31.63014505700275, "test_loss_batch_en": 26.313796997070312, "test_loss_sample_en": 0.877756342291832, "test_los_cls_unscaled": 31.63014505700275, "test_loss_batch_en_unscaled": 26.313796997070312, "test_loss_sample_en_unscaled": 0.877756342291832, "test_ema_loss": 50.88495902953036, "test_ema_los_cls": 30.336918609713386, "test_ema_loss_batch_en": 19.384297847747803, "test_ema_loss_sample_en": 1.163742572069168, "test_ema_los_cls_unscaled": 30.336918609713386, "test_ema_loss_batch_en_unscaled": 19.384297847747803, "test_ema_loss_sample_en_unscaled": 1.163742572069168, "epoch": 10, "n_parameters": 117948561, "epoch_time": "0:04:36", "best_mAP": 0.8275470494349755, "best_regular_mAP": 0.8223303131418845}
+[03/27 23:18:17.137]: Training time 0:52:24
+[03/27 23:18:17.138]: Now time: 2024-03-27 23:18:17.138778
+[03/27 23:18:18.883]: Epoch: [11/80]  [  0/646]  eta: 0:10:10  lr: 7.868784e-05  all_loss: 23.4395 (23.4395)  los_cls: 22.3414 (22.3414)  loss_batch_en: 0.1918 (0.1918)  loss_sample_en: 0.9064 (0.9064)  los_cls_unscaled: 22.3414 (22.3414)  loss_batch_en_unscaled: 0.1918 (0.1918)  loss_sample_en_unscaled: 0.9064 (0.9064)  wd: 0.0100 (0.0100)  time: 9.44E-01  data: 5.98E-01  max mem: 14238
+[03/27 23:20:25.396]: Epoch: [11/80]  [400/646]  eta: 0:01:18  lr: 8.332993e-05  all_loss: 24.1044 (25.0641)  los_cls: 22.5821 (23.7225)  loss_batch_en: 0.5394 (0.4635)  loss_sample_en: 0.8761 (0.8782)  los_cls_unscaled: 22.5821 (23.7225)  loss_batch_en_unscaled: 0.5394 (0.4635)  loss_sample_en_unscaled: 0.8761 (0.8782)  wd: 0.0100 (0.0100)  time: 3.15E-01  data: 1.88E-04  max mem: 14238
+[03/27 23:21:42.717]: Epoch: [11/80]  [645/646]  eta: 0:00:00  lr: 8.594886e-05  all_loss: 25.1365 (25.2678)  los_cls: 23.9694 (23.9324)  loss_batch_en: 0.4081 (0.4602)  loss_sample_en: 0.8672 (0.8752)  los_cls_unscaled: 23.9694 (23.9324)  loss_batch_en_unscaled: 0.4081 (0.4602)  loss_sample_en_unscaled: 0.8672 (0.8752)  wd: 0.0100 (0.0100)  time: 3.12E-01  data: 1.43E-04  max mem: 14238
+[03/27 23:21:42.952]: Epoch: [11/80] Total time: 0:03:25 (0.317360 s / it)
+[03/27 23:21:44.910]: Epoch: [11]  [  0/317]  eta: 0:05:45    time: 1.09E+00  data: 6.81E-01  max mem: 14238
+[03/27 23:22:12.560]: Epoch: [11]  [316/317]  eta: 0:00:00    time: 8.69E-02  data: 1.59E-04  max mem: 14238
+[03/27 23:22:12.738]: Epoch: [11] Total time: 0:00:28 (0.091230 s / it)
+[03/27 23:22:12.739]: => synchronize...
+[03/27 23:22:14.330]: Calculating mAP:
+[03/27 23:22:18.166]:   mAP: 0.8195775348008567
+[03/27 23:22:19.798]: Epoch: [11]  [  0/317]  eta: 0:04:44    time: 8.98E-01  data: 6.70E-01  max mem: 14238
+[03/27 23:22:46.974]: Epoch: [11]  [316/317]  eta: 0:00:00    time: 8.61E-02  data: 1.58E-04  max mem: 14238
+[03/27 23:22:47.180]: Epoch: [11] Total time: 0:00:28 (0.089212 s / it)
+[03/27 23:22:47.181]: => synchronize...
+[03/27 23:22:48.813]: Calculating mAP:
+[03/27 23:22:52.728]:   mAP: 0.8368754068668494
+[03/27 23:22:52.739]: 11 | Set best mAP 0.8368754068668494 in ep 11
+[03/27 23:22:52.739]:    | best regular mAP 0.8223303131418845 in ep 7
+{"train_lr": 8.24156981322228e-05, "train_all_loss": 25.267848643270877, "train_los_cls": 23.932405736154518, "train_loss_batch_en": 0.4602429805894385, "train_loss_sample_en": 0.8751999265269229, "train_los_cls_unscaled": 23.932405736154518, "train_loss_batch_en_unscaled": 0.4602429805894385, "train_loss_sample_en_unscaled": 0.8751999265269229, "train_wd": 0.009999999999999856, "test_loss": 52.485920675633125, "test_los_cls": 30.08033951425331, "test_loss_batch_en": 21.527859926223755, "test_loss_sample_en": 0.8777212351560593, "test_los_cls_unscaled": 30.08033951425331, "test_loss_batch_en_unscaled": 21.527859926223755, "test_loss_sample_en_unscaled": 0.8777212351560593, "test_ema_loss": 50.58592165132038, "test_ema_los_cls": 28.944236761526987, "test_ema_loss_batch_en": 20.53409767150879, "test_ema_loss_sample_en": 1.107587218284607, "test_ema_los_cls_unscaled": 28.944236761526987, "test_ema_loss_batch_en_unscaled": 20.53409767150879, "test_ema_loss_sample_en_unscaled": 1.107587218284607, "epoch": 11, "n_parameters": 117948561, "epoch_time": "0:04:35", "best_mAP": 0.8368754068668494, "best_regular_mAP": 0.8223303131418845}
+[03/27 23:23:02.993]: Training time 0:57:10
+[03/27 23:23:02.994]: Now time: 2024-03-27 23:23:02.994552
+[03/27 23:23:05.582]: Epoch: [12/80]  [  0/646]  eta: 0:15:24  lr: 8.595918e-05  all_loss: 25.6703 (25.6703)  los_cls: 24.5086 (24.5086)  loss_batch_en: 0.3463 (0.3463)  loss_sample_en: 0.8154 (0.8154)  los_cls_unscaled: 24.5086 (24.5086)  loss_batch_en_unscaled: 0.3463 (0.3463)  loss_sample_en_unscaled: 0.8154 (0.8154)  wd: 0.0100 (0.0100)  time: 1.43E+00  data: 7.99E-01  max mem: 14238
+[03/27 23:25:12.399]: Epoch: [12/80]  [400/646]  eta: 0:01:18  lr: 8.982302e-05  all_loss: 24.7056 (24.6464)  los_cls: 23.3442 (23.3343)  loss_batch_en: 0.4239 (0.4530)  loss_sample_en: 0.8633 (0.8591)  los_cls_unscaled: 23.3442 (23.3343)  loss_batch_en_unscaled: 0.4239 (0.4530)  loss_sample_en_unscaled: 0.8633 (0.8591)  wd: 0.0100 (0.0100)  time: 3.16E-01  data: 2.01E-04  max mem: 14238
+[03/27 23:26:30.157]: Epoch: [12/80]  [645/646]  eta: 0:00:00  lr: 9.191713e-05  all_loss: 26.0087 (24.9497)  los_cls: 24.8301 (23.6343)  loss_batch_en: 0.3173 (0.4566)  loss_sample_en: 0.8509 (0.8588)  los_cls_unscaled: 24.8301 (23.6343)  loss_batch_en_unscaled: 0.3173 (0.4566)  loss_sample_en_unscaled: 0.8509 (0.8588)  wd: 0.0100 (0.0100)  time: 3.13E-01  data: 1.33E-04  max mem: 14238
+[03/27 23:26:30.439]: Epoch: [12/80] Total time: 0:03:26 (0.319334 s / it)
+[03/27 23:26:32.206]: Epoch: [12]  [  0/317]  eta: 0:04:44    time: 8.96E-01  data: 7.85E-01  max mem: 14238
+[03/27 23:26:59.419]: Epoch: [12]  [316/317]  eta: 0:00:00    time: 8.71E-02  data: 1.55E-04  max mem: 14238
+[03/27 23:26:59.601]: Epoch: [12] Total time: 0:00:28 (0.089251 s / it)
+[03/27 23:26:59.602]: => synchronize...
+[03/27 23:27:01.221]: Calculating mAP:
+[03/27 23:27:05.168]:   mAP: 0.8213662619439169
+[03/27 23:27:06.773]: Epoch: [12]  [  0/317]  eta: 0:04:34    time: 8.66E-01  data: 5.95E-01  max mem: 14238
+[03/27 23:27:33.918]: Epoch: [12]  [316/317]  eta: 0:00:00    time: 8.63E-02  data: 1.39E-04  max mem: 14238
+[03/27 23:27:34.143]: Epoch: [12] Total time: 0:00:28 (0.089077 s / it)
+[03/27 23:27:34.144]: => synchronize...
+[03/27 23:27:35.706]: Calculating mAP:
+[03/27 23:27:39.469]:   mAP: 0.8433654017895336
+[03/27 23:27:39.479]: 12 | Set best mAP 0.8433654017895336 in ep 12
+[03/27 23:27:39.479]:    | best regular mAP 0.8223303131418845 in ep 7
+{"train_lr": 8.905675296132821e-05, "train_all_loss": 24.949710227250858, "train_los_cls": 23.634343561767047, "train_loss_batch_en": 0.45657520969585735, "train_loss_sample_en": 0.8587914557879555, "train_los_cls_unscaled": 23.634343561767047, "train_loss_batch_en_unscaled": 0.45657520969585735, "train_loss_sample_en_unscaled": 0.8587914557879555, "train_wd": 0.009999999999999856, "test_loss": 55.11863037631973, "test_los_cls": 32.33818535194858, "test_loss_batch_en": 21.853184700012207, "test_loss_sample_en": 0.9272603243589401, "test_los_cls_unscaled": 32.33818535194858, "test_loss_batch_en_unscaled": 21.853184700012207, "test_loss_sample_en_unscaled": 0.9272603243589401, "test_ema_loss": 49.85504568487855, "test_ema_los_cls": 28.01285425693246, "test_ema_loss_batch_en": 20.778298377990723, "test_ema_loss_sample_en": 1.063893049955368, "test_ema_los_cls_unscaled": 28.01285425693246, "test_ema_loss_batch_en_unscaled": 20.778298377990723, "test_ema_loss_sample_en_unscaled": 1.063893049955368, "epoch": 12, "n_parameters": 117948561, "epoch_time": "0:04:36", "best_mAP": 0.8433654017895336, "best_regular_mAP": 0.8223303131418845}
+[03/27 23:27:50.117]: Training time 1:01:57
+[03/27 23:27:50.117]: Now time: 2024-03-27 23:27:50.117611
+[03/27 23:27:52.690]: Epoch: [13/80]  [  0/646]  eta: 0:17:24  lr: 9.192523e-05  all_loss: 22.4619 (22.4619)  los_cls: 20.9740 (20.9740)  loss_batch_en: 0.5948 (0.5948)  loss_sample_en: 0.8931 (0.8931)  los_cls_unscaled: 20.9740 (20.9740)  loss_batch_en_unscaled: 0.5948 (0.5948)  loss_sample_en_unscaled: 0.8931 (0.8931)  wd: 0.0100 (0.0100)  time: 1.62E+00  data: 8.18E-01  max mem: 14238
+[03/27 23:29:59.411]: Epoch: [13/80]  [400/646]  eta: 0:01:18  lr: 9.486231e-05  all_loss: 24.4163 (24.3638)  los_cls: 23.2439 (23.0854)  loss_batch_en: 0.4483 (0.4158)  loss_sample_en: 0.8680 (0.8626)  los_cls_unscaled: 23.2439 (23.0854)  loss_batch_en_unscaled: 0.4483 (0.4158)  loss_sample_en_unscaled: 0.8680 (0.8626)  wd: 0.0100 (0.0100)  time: 3.17E-01  data: 2.05E-04  max mem: 14238
+[03/27 23:31:16.630]: Epoch: [13/80]  [645/646]  eta: 0:00:00  lr: 9.635110e-05  all_loss: 25.0971 (24.5634)  los_cls: 23.9923 (23.2840)  loss_batch_en: 0.3387 (0.4183)  loss_sample_en: 0.8807 (0.8611)  los_cls_unscaled: 23.9923 (23.2840)  loss_batch_en_unscaled: 0.3387 (0.4183)  loss_sample_en_unscaled: 0.8807 (0.8611)  wd: 0.0100 (0.0100)  time: 3.11E-01  data: 1.49E-04  max mem: 14238
+[03/27 23:31:16.898]: Epoch: [13/80] Total time: 0:03:25 (0.318615 s / it)
+[03/27 23:31:18.786]: Epoch: [13]  [  0/317]  eta: 0:05:16    time: 1.00E+00  data: 8.94E-01  max mem: 14238
+[03/27 23:31:45.798]: Epoch: [13]  [316/317]  eta: 0:00:00    time: 8.62E-02  data: 1.56E-04  max mem: 14238
+[03/27 23:31:46.003]: Epoch: [13] Total time: 0:00:28 (0.089014 s / it)
+[03/27 23:31:46.003]: => synchronize...
+[03/27 23:31:47.574]: Calculating mAP:
+[03/27 23:31:51.376]:   mAP: 0.8206411324427114
+[03/27 23:31:53.018]: Epoch: [13]  [  0/317]  eta: 0:04:46    time: 9.04E-01  data: 8.25E-01  max mem: 14238
+[03/27 23:32:19.957]: Epoch: [13]  [316/317]  eta: 0:00:00    time: 8.59E-02  data: 1.58E-04  max mem: 14238
+[03/27 23:32:20.171]: Epoch: [13] Total time: 0:00:28 (0.088513 s / it)
+[03/27 23:32:20.172]: => synchronize...
+[03/27 23:32:21.755]: Calculating mAP:
+[03/27 23:32:25.529]:   mAP: 0.8476593444838171
+[03/27 23:32:25.540]: 13 | Set best mAP 0.8476593444838171 in ep 13
+[03/27 23:32:25.541]:    | best regular mAP 0.8223303131418845 in ep 7
+{"train_lr": 9.427346284657843e-05, "train_all_loss": 24.56344969332745, "train_los_cls": 23.28403444502533, "train_loss_batch_en": 0.4183173133492839, "train_loss_sample_en": 0.8610979349528304, "train_los_cls_unscaled": 23.28403444502533, "train_loss_batch_en_unscaled": 0.4183173133492839, "train_loss_sample_en_unscaled": 0.8610979349528304, "train_wd": 0.009999999999999856, "test_loss": 63.00877862552295, "test_los_cls": 34.038089909945825, "test_loss_batch_en": 28.112262725830078, "test_loss_sample_en": 0.8584259897470474, "test_los_cls_unscaled": 34.038089909945825, "test_loss_batch_en_unscaled": 28.112262725830078, "test_loss_sample_en_unscaled": 0.8584259897470474, "test_ema_loss": 49.05377233487272, "test_ema_los_cls": 27.614224021255012, "test_ema_loss_batch_en": 20.404329776763916, "test_ema_loss_sample_en": 1.0352185368537903, "test_ema_los_cls_unscaled": 27.614224021255012, "test_ema_loss_batch_en_unscaled": 20.404329776763916, "test_ema_loss_sample_en_unscaled": 1.0352185368537903, "epoch": 13, "n_parameters": 117948561, "epoch_time": "0:04:35", "best_mAP": 0.8476593444838171, "best_regular_mAP": 0.8223303131418845}
+[03/27 23:32:35.994]: Training time 1:06:43
+[03/27 23:32:35.995]: Now time: 2024-03-27 23:32:35.995023
+[03/27 23:32:39.456]: Epoch: [14/80]  [  0/646]  eta: 0:28:35  lr: 9.635668e-05  all_loss: 22.7791 (22.7791)  los_cls: 21.5500 (21.5500)  loss_batch_en: 0.2959 (0.2959)  loss_sample_en: 0.9331 (0.9331)  los_cls_unscaled: 21.5500 (21.5500)  loss_batch_en_unscaled: 0.2959 (0.2959)  loss_sample_en_unscaled: 0.9331 (0.9331)  wd: 0.0100 (0.0100)  time: 2.66E+00  data: 7.43E-01  max mem: 14238
+[03/27 23:34:46.418]: Epoch: [14/80]  [400/646]  eta: 0:01:19  lr: 9.825410e-05  all_loss: 23.5254 (23.9516)  los_cls: 22.1862 (22.6906)  loss_batch_en: 0.3790 (0.3888)  loss_sample_en: 0.8837 (0.8722)  los_cls_unscaled: 22.1862 (22.6906)  loss_batch_en_unscaled: 0.3790 (0.3888)  loss_sample_en_unscaled: 0.8837 (0.8722)  wd: 0.0100 (0.0100)  time: 3.15E-01  data: 1.88E-04  max mem: 14238
+[03/27 23:36:03.707]: Epoch: [14/80]  [645/646]  eta: 0:00:00  lr: 9.908036e-05  all_loss: 23.5445 (24.1762)  los_cls: 22.1415 (22.9246)  loss_batch_en: 0.3884 (0.3832)  loss_sample_en: 0.8585 (0.8684)  los_cls_unscaled: 22.1415 (22.9246)  loss_batch_en_unscaled: 0.3884 (0.3832)  loss_sample_en_unscaled: 0.8585 (0.8684)  wd: 0.0100 (0.0100)  time: 3.10E-01  data: 1.37E-04  max mem: 14238
+[03/27 23:36:03.966]: Epoch: [14/80] Total time: 0:03:27 (0.320691 s / it)
+[03/27 23:36:07.029]: Epoch: [14]  [  0/317]  eta: 0:07:06    time: 1.35E+00  data: 6.84E-01  max mem: 14238
+[03/27 23:36:34.518]: Epoch: [14]  [316/317]  eta: 0:00:00    time: 8.70E-02  data: 1.94E-04  max mem: 14238
+[03/27 23:36:34.762]: Epoch: [14] Total time: 0:00:29 (0.091739 s / it)
+[03/27 23:36:34.763]: => synchronize...
+[03/27 23:36:36.353]: Calculating mAP:
+[03/27 23:36:40.149]:   mAP: 0.8183907769153713
+[03/27 23:36:41.864]: Epoch: [14]  [  0/317]  eta: 0:05:06    time: 9.68E-01  data: 7.02E-01  max mem: 14238
+[03/27 23:37:10.583]: Epoch: [14]  [316/317]  eta: 0:00:00    time: 8.72E-02  data: 1.74E-04  max mem: 14238
+[03/27 23:37:10.827]: Epoch: [14] Total time: 0:00:29 (0.094423 s / it)
+[03/27 23:37:10.828]: => synchronize...
+[03/27 23:37:12.374]: Calculating mAP:
+[03/27 23:37:16.420]:   mAP: 0.8506112003155671
+[03/27 23:37:16.432]: 14 | Set best mAP 0.8506112003155671 in ep 14
+[03/27 23:37:16.432]:    | best regular mAP 0.8223303131418845 in ep 7
+{"train_lr": 9.786531388012081e-05, "train_all_loss": 24.17621570473605, "train_los_cls": 22.924595000053063, "train_loss_batch_en": 0.3832181909874128, "train_loss_sample_en": 0.8684025136955751, "train_los_cls_unscaled": 22.924595000053063, "train_loss_batch_en_unscaled": 0.3832181909874128, "train_loss_sample_en_unscaled": 0.8684025136955751, "train_wd": 0.009999999999999856, "test_loss": 58.43662628130558, "test_los_cls": 35.4512455274308, "test_loss_batch_en": 22.096916675567627, "test_loss_sample_en": 0.8884640783071518, "test_los_cls_unscaled": 35.4512455274308, "test_loss_batch_en_unscaled": 22.096916675567627, "test_loss_sample_en_unscaled": 0.8884640783071518, "test_ema_loss": 49.365132826988415, "test_ema_los_cls": 27.66345994514676, "test_ema_loss_batch_en": 20.70021343231201, "test_ema_loss_sample_en": 1.0014594495296478, "test_ema_los_cls_unscaled": 27.66345994514676, "test_ema_loss_batch_en_unscaled": 20.70021343231201, "test_ema_loss_sample_en_unscaled": 1.0014594495296478, "epoch": 14, "n_parameters": 117948561, "epoch_time": "0:04:40", "best_mAP": 0.8506112003155671, "best_regular_mAP": 0.8223303131418845}
+[03/27 23:37:26.687]: Training time 1:11:34
+[03/27 23:37:26.688]: Now time: 2024-03-27 23:37:26.688050
+[03/27 23:37:28.511]: Epoch: [15/80]  [  0/646]  eta: 0:10:36  lr: 9.908320e-05  all_loss: 22.1924 (22.1924)  los_cls: 20.9908 (20.9908)  loss_batch_en: 0.3741 (0.3741)  loss_sample_en: 0.8275 (0.8275)  los_cls_unscaled: 20.9908 (20.9908)  loss_batch_en_unscaled: 0.3741 (0.3741)  loss_sample_en_unscaled: 0.8275 (0.8275)  wd: 0.0100 (0.0100)  time: 9.85E-01  data: 5.98E-01  max mem: 14238
+[03/27 23:39:37.896]: Epoch: [15/80]  [400/646]  eta: 0:01:19  lr: 9.986803e-05  all_loss: 23.3459 (23.6384)  los_cls: 22.1687 (22.4133)  loss_batch_en: 0.3532 (0.3743)  loss_sample_en: 0.8598 (0.8508)  los_cls_unscaled: 22.1687 (22.4133)  loss_batch_en_unscaled: 0.3532 (0.3743)  loss_sample_en_unscaled: 0.8598 (0.8508)  wd: 0.0100 (0.0100)  time: 3.16E-01  data: 1.87E-04  max mem: 14238
+[03/27 23:40:57.096]: Epoch: [15/80]  [645/646]  eta: 0:00:00  lr: 1.000000e-04  all_loss: 23.9418 (23.7065)  los_cls: 22.6599 (22.4831)  loss_batch_en: 0.3989 (0.3761)  loss_sample_en: 0.8522 (0.8473)  los_cls_unscaled: 22.6599 (22.4831)  loss_batch_en_unscaled: 0.3989 (0.3761)  loss_sample_en_unscaled: 0.8522 (0.8473)  wd: 0.0100 (0.0100)  time: 3.12E-01  data: 1.45E-04  max mem: 14238
+[03/27 23:40:57.371]: Epoch: [15/80] Total time: 0:03:29 (0.324841 s / it)
+[03/27 23:40:59.372]: Epoch: [15]  [  0/317]  eta: 0:05:51    time: 1.11E+00  data: 6.45E-01  max mem: 14238
+[03/27 23:41:28.258]: Epoch: [15]  [316/317]  eta: 0:00:00    time: 8.67E-02  data: 1.89E-04  max mem: 14238
+[03/27 23:41:28.501]: Epoch: [15] Total time: 0:00:30 (0.095394 s / it)
+[03/27 23:41:28.503]: => synchronize...
+[03/27 23:41:30.088]: Calculating mAP:
+[03/27 23:41:34.052]:   mAP: 0.820122928997805
+[03/27 23:41:35.528]: Epoch: [15]  [  0/317]  eta: 0:04:32    time: 8.59E-01  data: 6.32E-01  max mem: 14238
+[03/27 23:42:02.548]: Epoch: [15]  [316/317]  eta: 0:00:00    time: 8.59E-02  data: 1.68E-04  max mem: 14238
+[03/27 23:42:02.768]: Epoch: [15] Total time: 0:00:28 (0.088645 s / it)
+[03/27 23:42:02.769]: => synchronize...
+[03/27 23:42:05.002]: Calculating mAP:
+[03/27 23:42:08.877]:   mAP: 0.8527940084059162
+[03/27 23:42:08.891]: 15 | Set best mAP 0.8527940084059162 in ep 15
+[03/27 23:42:08.891]:    | best regular mAP 0.8223303131418845 in ep 7
+{"train_lr": 9.969424661715927e-05, "train_all_loss": 23.7064757232336, "train_los_cls": 22.483136011107447, "train_loss_batch_en": 0.37608587243608643, "train_loss_sample_en": 0.8472538396900653, "train_los_cls_unscaled": 22.483136011107447, "train_loss_batch_en_unscaled": 0.37608587243608643, "train_loss_sample_en_unscaled": 0.8472538396900653, "train_wd": 0.009999999999999856, "test_loss": 60.9926209902591, "test_los_cls": 29.979965970498966, "test_loss_batch_en": 30.250287532806396, "test_loss_sample_en": 0.7623674869537354, "test_los_cls_unscaled": 29.979965970498966, "test_loss_batch_en_unscaled": 30.250287532806396, "test_loss_sample_en_unscaled": 0.7623674869537354, "test_ema_loss": 50.24386883764056, "test_ema_los_cls": 28.07427419214038, "test_ema_loss_batch_en": 21.19664216041565, "test_ema_loss_sample_en": 0.9729524850845337, "test_ema_los_cls_unscaled": 28.07427419214038, "test_ema_loss_batch_en_unscaled": 21.19664216041565, "test_ema_loss_sample_en_unscaled": 0.9729524850845337, "epoch": 15, "n_parameters": 117948561, "epoch_time": "0:04:42", "best_mAP": 0.8527940084059162, "best_regular_mAP": 0.8223303131418845}
+[03/27 23:42:19.398]: Training time 1:16:26
+[03/27 23:42:19.399]: Now time: 2024-03-27 23:42:19.399248
+[03/27 23:42:21.494]: Epoch: [16/80]  [  0/646]  eta: 0:13:27  lr: 1.000000e-04  all_loss: 20.8399 (20.8399)  los_cls: 19.7564 (19.7564)  loss_batch_en: 0.2490 (0.2490)  loss_sample_en: 0.8345 (0.8345)  los_cls_unscaled: 19.7564 (19.7564)  loss_batch_en_unscaled: 0.2490 (0.2490)  loss_sample_en_unscaled: 0.8345 (0.8345)  wd: 0.0100 (0.0100)  time: 1.25E+00  data: 8.54E-01  max mem: 14238
+[03/27 23:44:30.386]: Epoch: [16/80]  [400/646]  eta: 0:01:19  lr: 9.997667e-05  all_loss: 22.7917 (22.9333)  los_cls: 21.6727 (21.7455)  loss_batch_en: 0.3062 (0.3568)  loss_sample_en: 0.8546 (0.8311)  los_cls_unscaled: 21.6727 (21.7455)  loss_batch_en_unscaled: 0.3062 (0.3568)  loss_sample_en_unscaled: 0.8546 (0.8311)  wd: 0.0100 (0.0100)  time: 3.15E-01  data: 1.82E-04  max mem: 14238
+[03/27 23:45:47.471]: Epoch: [16/80]  [645/646]  eta: 0:00:00  lr: 9.993959e-05  all_loss: 24.0860 (23.1410)  los_cls: 22.6561 (21.9474)  loss_batch_en: 0.3478 (0.3635)  loss_sample_en: 0.8139 (0.8300)  los_cls_unscaled: 22.6561 (21.9474)  loss_batch_en_unscaled: 0.3478 (0.3635)  loss_sample_en_unscaled: 0.8139 (0.8300)  wd: 0.0100 (0.0100)  time: 3.10E-01  data: 2.11E-04  max mem: 14238
+[03/27 23:45:47.754]: Epoch: [16/80] Total time: 0:03:27 (0.321226 s / it)
+[03/27 23:45:49.847]: Epoch: [16]  [  0/317]  eta: 0:06:36    time: 1.25E+00  data: 1.11E+00  max mem: 14238
+[03/27 23:46:19.149]: Epoch: [16]  [316/317]  eta: 0:00:00    time: 8.83E-02  data: 2.10E-04  max mem: 14238
+[03/27 23:46:19.442]: Epoch: [16] Total time: 0:00:30 (0.097312 s / it)
+[03/27 23:46:19.443]: => synchronize...
+[03/27 23:46:21.042]: Calculating mAP:
+[03/27 23:46:24.768]:   mAP: 0.8205242615757611
+[03/27 23:46:26.451]: Epoch: [16]  [  0/317]  eta: 0:05:01    time: 9.51E-01  data: 6.02E-01  max mem: 14238
+[03/27 23:46:53.591]: Epoch: [16]  [316/317]  eta: 0:00:00    time: 8.79E-02  data: 1.92E-04  max mem: 14238
+[03/27 23:46:53.797]: Epoch: [16] Total time: 0:00:28 (0.089268 s / it)
+[03/27 23:46:53.798]: => synchronize...
+[03/27 23:46:55.534]: Calculating mAP:
+[03/27 23:46:59.398]:   mAP: 0.854483988156604
+[03/27 23:46:59.408]: 16 | Set best mAP 0.854483988156604 in ep 16
+[03/27 23:46:59.409]:    | best regular mAP 0.8223303131418845 in ep 7
+{"train_lr": 9.997978257930717e-05, "train_all_loss": 23.140954016397735, "train_los_cls": 21.94742308049982, "train_loss_batch_en": 0.36354801234077005, "train_loss_sample_en": 0.8299829235571456, "train_los_cls_unscaled": 21.94742308049982, "train_loss_batch_en_unscaled": 0.36354801234077005, "train_loss_sample_en_unscaled": 0.8299829235571456, "train_wd": 0.009999999999999856, "test_loss": 61.00927437029642, "test_los_cls": 31.407478279693542, "test_loss_batch_en": 28.797662258148193, "test_loss_sample_en": 0.8041338324546814, "test_los_cls_unscaled": 31.407478279693542, "test_loss_batch_en_unscaled": 28.797662258148193, "test_loss_sample_en_unscaled": 0.8041338324546814, "test_ema_loss": 51.54939227473834, "test_ema_los_cls": 28.885789013625168, "test_ema_loss_batch_en": 21.714705228805542, "test_ema_loss_sample_en": 0.9488980323076248, "test_ema_los_cls_unscaled": 28.885789013625168, "test_ema_loss_batch_en_unscaled": 21.714705228805542, "test_ema_loss_sample_en_unscaled": 0.9488980323076248, "epoch": 16, "n_parameters": 117948561, "epoch_time": "0:04:40", "best_mAP": 0.854483988156604, "best_regular_mAP": 0.8223303131418845}
+[03/27 23:47:10.452]: Training time 1:21:17
+[03/27 23:47:10.453]: Now time: 2024-03-27 23:47:10.453166
+[03/27 23:47:12.450]: Epoch: [17/80]  [  0/646]  eta: 0:13:02  lr: 9.993940e-05  all_loss: 23.6224 (23.6224)  los_cls: 22.5829 (22.5829)  loss_batch_en: 0.2441 (0.2441)  loss_sample_en: 0.7954 (0.7954)  los_cls_unscaled: 22.5829 (22.5829)  loss_batch_en_unscaled: 0.2441 (0.2441)  loss_sample_en_unscaled: 0.7954 (0.7954)  wd: 0.0100 (0.0100)  time: 1.21E+00  data: 8.09E-01  max mem: 14238
+[03/27 23:49:18.671]: Epoch: [17/80]  [400/646]  eta: 0:01:18  lr: 9.984154e-05  all_loss: 21.9924 (22.2507)  los_cls: 20.9371 (21.0733)  loss_batch_en: 0.3020 (0.3602)  loss_sample_en: 0.8092 (0.8172)  los_cls_unscaled: 20.9371 (21.0733)  loss_batch_en_unscaled: 0.3020 (0.3602)  loss_sample_en_unscaled: 0.8092 (0.8172)  wd: 0.0100 (0.0100)  time: 3.17E-01  data: 1.74E-04  max mem: 14238
+[03/27 23:50:36.684]: Epoch: [17/80]  [645/646]  eta: 0:00:00  lr: 9.975886e-05  all_loss: 22.6265 (22.5328)  los_cls: 21.3573 (21.3537)  loss_batch_en: 0.2885 (0.3630)  loss_sample_en: 0.8124 (0.8160)  los_cls_unscaled: 21.3573 (21.3537)  loss_batch_en_unscaled: 0.2885 (0.3630)  loss_sample_en_unscaled: 0.8124 (0.8160)  wd: 0.0100 (0.0100)  time: 3.18E-01  data: 1.50E-04  max mem: 14238
+[03/27 23:50:36.977]: Epoch: [17/80] Total time: 0:03:25 (0.318482 s / it)
+[03/27 23:50:40.706]: Epoch: [17]  [  0/317]  eta: 0:07:35    time: 1.44E+00  data: 6.44E-01  max mem: 14238
+[03/27 23:51:07.833]: Epoch: [17]  [316/317]  eta: 0:00:00    time: 8.62E-02  data: 1.31E-04  max mem: 14238
+[03/27 23:51:08.036]: Epoch: [17] Total time: 0:00:28 (0.090756 s / it)
+[03/27 23:51:08.038]: => synchronize...
+[03/27 23:51:09.650]: Calculating mAP:
+[03/27 23:51:13.590]:   mAP: 0.8208321804868121
+[03/27 23:51:15.087]: Epoch: [17]  [  0/317]  eta: 0:04:00    time: 7.57E-01  data: 6.36E-01  max mem: 14238
+[03/27 23:51:42.284]: Epoch: [17]  [316/317]  eta: 0:00:00    time: 8.63E-02  data: 1.47E-04  max mem: 14238
+[03/27 23:51:42.502]: Epoch: [17] Total time: 0:00:28 (0.088875 s / it)
+[03/27 23:51:42.503]: => synchronize...
+[03/27 23:51:44.187]: Calculating mAP:
+[03/27 23:51:47.935]:   mAP: 0.8555732070252976
+[03/27 23:51:47.946]: 17 | Set best mAP 0.8555732070252976 in ep 17
+[03/27 23:51:47.946]:    | best regular mAP 0.8223303131418845 in ep 7
+{"train_lr": 9.985909769546682e-05, "train_all_loss": 22.53277699246016, "train_los_cls": 21.3537222359699, "train_loss_batch_en": 0.3630292673967202, "train_loss_sample_en": 0.816025489093534, "train_los_cls_unscaled": 21.3537222359699, "train_loss_batch_en_unscaled": 0.3630292673967202, "train_loss_sample_en_unscaled": 0.816025489093534, "train_wd": 0.009999999999999856, "test_loss": 59.886797308909266, "test_los_cls": 33.52557420729336, "test_loss_batch_en": 25.60710620880127, "test_loss_sample_en": 0.7541168928146362, "test_los_cls_unscaled": 33.52557420729336, "test_loss_batch_en_unscaled": 25.60710620880127, "test_loss_sample_en_unscaled": 0.7541168928146362, "test_ema_loss": 52.54040623909021, "test_ema_los_cls": 29.510324952063804, "test_ema_loss_batch_en": 22.108656406402588, "test_ema_loss_sample_en": 0.9214248806238174, "test_ema_los_cls_unscaled": 29.510324952063804, "test_ema_loss_batch_en_unscaled": 22.108656406402588, "test_ema_loss_sample_en_unscaled": 0.9214248806238174, "epoch": 17, "n_parameters": 117948561, "epoch_time": "0:04:37", "best_mAP": 0.8555732070252976, "best_regular_mAP": 0.8223303131418845}
+[03/27 23:51:58.457]: Training time 1:26:05
+[03/27 23:51:58.458]: Now time: 2024-03-27 23:51:58.458577
+[03/27 23:52:01.853]: Epoch: [18/80]  [  0/646]  eta: 0:26:52  lr: 9.975849e-05  all_loss: 26.0748 (26.0748)  los_cls: 24.7914 (24.7914)  loss_batch_en: 0.4665 (0.4665)  loss_sample_en: 0.8169 (0.8169)  los_cls_unscaled: 24.7914 (24.7914)  loss_batch_en_unscaled: 0.4665 (0.4665)  loss_sample_en_unscaled: 0.8169 (0.8169)  wd: 0.0100 (0.0100)  time: 2.50E+00  data: 8.11E-01  max mem: 14238
+[03/27 23:54:10.894]: Epoch: [18/80]  [400/646]  eta: 0:01:20  lr: 9.958634e-05  all_loss: 22.4362 (21.6563)  los_cls: 21.1706 (20.4837)  loss_batch_en: 0.3973 (0.3720)  loss_sample_en: 0.7947 (0.8006)  los_cls_unscaled: 21.1706 (20.4837)  loss_batch_en_unscaled: 0.3973 (0.3720)  loss_sample_en_unscaled: 0.7947 (0.8006)  wd: 0.0100 (0.0100)  time: 3.18E-01  data: 1.83E-04  max mem: 14238
+[03/27 23:55:28.169]: Epoch: [18/80]  [645/646]  eta: 0:00:00  lr: 9.945827e-05  all_loss: 21.8067 (21.9695)  los_cls: 20.6898 (20.8018)  loss_batch_en: 0.3196 (0.3682)  loss_sample_en: 0.8171 (0.7996)  los_cls_unscaled: 20.6898 (20.8018)  loss_batch_en_unscaled: 0.3196 (0.3682)  loss_sample_en_unscaled: 0.8171 (0.7996)  wd: 0.0100 (0.0100)  time: 3.12E-01  data: 1.47E-04  max mem: 14238
+[03/27 23:55:28.415]: Epoch: [18/80] Total time: 0:03:29 (0.323622 s / it)
+[03/27 23:55:31.007]: Epoch: [18]  [  0/317]  eta: 0:09:05    time: 1.72E+00  data: 6.63E-01  max mem: 14238
+[03/27 23:55:59.505]: Epoch: [18]  [316/317]  eta: 0:00:00    time: 8.64E-02  data: 1.84E-04  max mem: 14238
+[03/27 23:55:59.746]: Epoch: [18] Total time: 0:00:30 (0.096084 s / it)
+[03/27 23:55:59.746]: => synchronize...
+[03/27 23:56:01.326]: Calculating mAP:
+[03/27 23:56:05.299]:   mAP: 0.8236379574371007
+[03/27 23:56:06.990]: Epoch: [18]  [  0/317]  eta: 0:05:38    time: 1.07E+00  data: 5.92E-01  max mem: 14238
+[03/27 23:56:34.280]: Epoch: [18]  [316/317]  eta: 0:00:00    time: 8.68E-02  data: 2.47E-04  max mem: 14238
+[03/27 23:56:34.513]: Epoch: [18] Total time: 0:00:28 (0.090193 s / it)
+[03/27 23:56:34.514]: => synchronize...
+[03/27 23:56:36.087]: Calculating mAP:
+[03/27 23:56:39.900]:   mAP: 0.8564441005008456
+[03/27 23:56:39.914]: 18 | Set best mAP 0.8564441005008456 in ep 18
+[03/27 23:56:39.914]:    | best regular mAP 0.8236379574371007 in ep 18
+{"train_lr": 9.961829835995464e-05, "train_all_loss": 21.969509310637985, "train_los_cls": 20.80177130701055, "train_loss_batch_en": 0.3681702833426626, "train_loss_sample_en": 0.799567720284772, "train_los_cls_unscaled": 20.80177130701055, "train_loss_batch_en_unscaled": 0.3681702833426626, "train_loss_sample_en_unscaled": 0.799567720284772, "train_wd": 0.009999999999999856, "test_loss": 55.91738888253056, "test_los_cls": 32.23022867370926, "test_loss_batch_en": 22.88540029525757, "test_loss_sample_en": 0.8017599135637283, "test_los_cls_unscaled": 32.23022867370926, "test_loss_batch_en_unscaled": 22.88540029525757, "test_loss_sample_en_unscaled": 0.8017599135637283, "test_ema_loss": 53.29680227036364, "test_ema_los_cls": 30.096368554185702, "test_ema_loss_batch_en": 22.31031036376953, "test_ema_loss_sample_en": 0.8901233524084091, "test_ema_los_cls_unscaled": 30.096368554185702, "test_ema_loss_batch_en_unscaled": 22.31031036376953, "test_ema_loss_sample_en_unscaled": 0.8901233524084091, "epoch": 18, "n_parameters": 117948561, "epoch_time": "0:04:41", "best_mAP": 0.8564441005008456, "best_regular_mAP": 0.8236379574371007}
+[03/27 23:56:50.468]: Training time 1:30:57
+[03/27 23:56:50.468]: Now time: 2024-03-27 23:56:50.468488
+[03/27 23:56:53.594]: Epoch: [19/80]  [  0/646]  eta: 0:19:40  lr: 9.945771e-05  all_loss: 22.8992 (22.8992)  los_cls: 21.8659 (21.8659)  loss_batch_en: 0.2256 (0.2256)  loss_sample_en: 0.8077 (0.8077)  los_cls_unscaled: 21.8659 (21.8659)  loss_batch_en_unscaled: 0.2256 (0.2256)  loss_sample_en_unscaled: 0.8077 (0.8077)  wd: 0.0100 (0.0100)  time: 1.83E+00  data: 7.63E-01  max mem: 14238
+[03/27 23:59:00.902]: Epoch: [19/80]  [400/646]  eta: 0:01:19  lr: 9.921168e-05  all_loss: 20.9643 (21.2615)  los_cls: 19.8974 (20.1186)  loss_batch_en: 0.3389 (0.3512)  loss_sample_en: 0.7809 (0.7917)  los_cls_unscaled: 19.8974 (20.1186)  loss_batch_en_unscaled: 0.3389 (0.3512)  loss_sample_en_unscaled: 0.7809 (0.7917)  wd: 0.0100 (0.0100)  time: 3.18E-01  data: 2.02E-04  max mem: 14238
+[03/28 00:00:18.597]: Epoch: [19/80]  [645/646]  eta: 0:00:00  lr: 9.903853e-05  all_loss: 20.8414 (21.4946)  los_cls: 19.7000 (20.3488)  loss_batch_en: 0.3017 (0.3576)  loss_sample_en: 0.7818 (0.7883)  los_cls_unscaled: 19.7000 (20.3488)  loss_batch_en_unscaled: 0.3017 (0.3576)  loss_sample_en_unscaled: 0.7818 (0.7883)  wd: 0.0100 (0.0100)  time: 3.10E-01  data: 1.53E-04  max mem: 14238
+[03/28 00:00:18.871]: Epoch: [19/80] Total time: 0:03:27 (0.320596 s / it)
+[03/28 00:00:20.893]: Epoch: [19]  [  0/317]  eta: 0:06:10    time: 1.17E+00  data: 6.25E-01  max mem: 14238
+[03/28 00:00:48.062]: Epoch: [19]  [316/317]  eta: 0:00:00    time: 8.62E-02  data: 1.64E-04  max mem: 14238
+[03/28 00:00:48.291]: Epoch: [19] Total time: 0:00:28 (0.090122 s / it)
+[03/28 00:00:48.291]: => synchronize...
+[03/28 00:00:49.870]: Calculating mAP:
+[03/28 00:00:53.638]:   mAP: 0.8242485363146915
+[03/28 00:00:55.379]: Epoch: [19]  [  0/317]  eta: 0:05:16    time: 9.99E-01  data: 6.44E-01  max mem: 14238
+[03/28 00:01:22.364]: Epoch: [19]  [316/317]  eta: 0:00:00    time: 8.54E-02  data: 1.44E-04  max mem: 14238
+[03/28 00:01:22.594]: Epoch: [19] Total time: 0:00:28 (0.089002 s / it)
+[03/28 00:01:22.594]: => synchronize...
+[03/28 00:01:24.212]: Calculating mAP:
+[03/28 00:01:28.077]:   mAP: 0.8569006619571656
+[03/28 00:01:28.090]: 19 | Set best mAP 0.8569006619571656 in ep 19
+[03/28 00:01:28.090]:    | best regular mAP 0.8242485363146915 in ep 19
+{"train_lr": 9.92579646794611e-05, "train_all_loss": 21.49464916410668, "train_los_cls": 20.348809855115526, "train_loss_batch_en": 0.357561634605514, "train_loss_sample_en": 0.7882776743856377, "train_los_cls_unscaled": 20.348809855115526, "train_loss_batch_en_unscaled": 0.357561634605514, "train_loss_sample_en_unscaled": 0.7882776743856377, "train_wd": 0.009999999999999856, "test_loss": 59.19714559386133, "test_los_cls": 33.39059510598539, "test_loss_batch_en": 24.992483377456665, "test_loss_sample_en": 0.8140671104192734, "test_los_cls_unscaled": 33.39059510598539, "test_loss_batch_en_unscaled": 24.992483377456665, "test_loss_sample_en_unscaled": 0.8140671104192734, "test_ema_loss": 54.4060619761202, "test_ema_los_cls": 30.995542003676615, "test_ema_loss_batch_en": 22.54650640487671, "test_ema_loss_sample_en": 0.8640135675668716, "test_ema_los_cls_unscaled": 30.995542003676615, "test_ema_loss_batch_en_unscaled": 22.54650640487671, "test_ema_loss_sample_en_unscaled": 0.8640135675668716, "epoch": 19, "n_parameters": 117948561, "epoch_time": "0:04:37", "best_mAP": 0.8569006619571656, "best_regular_mAP": 0.8242485363146915}
+[03/28 00:01:38.521]: Training time 1:35:45
+[03/28 00:01:38.522]: Now time: 2024-03-28 00:01:38.522532
+[03/28 00:01:41.141]: Epoch: [20/80]  [  0/646]  eta: 0:19:32  lr: 9.903778e-05  all_loss: 19.8904 (19.8904)  los_cls: 18.9494 (18.9494)  loss_batch_en: 0.2022 (0.2022)  loss_sample_en: 0.7387 (0.7387)  los_cls_unscaled: 18.9494 (18.9494)  loss_batch_en_unscaled: 0.2022 (0.2022)  loss_sample_en_unscaled: 0.7387 (0.7387)  wd: 0.0100 (0.0100)  time: 1.81E+00  data: 6.17E-01  max mem: 14238
+[03/28 00:03:48.134]: Epoch: [20/80]  [400/646]  eta: 0:01:19  lr: 9.871847e-05  all_loss: 21.2660 (20.6150)  los_cls: 20.2484 (19.4932)  loss_batch_en: 0.2812 (0.3384)  loss_sample_en: 0.7861 (0.7834)  los_cls_unscaled: 20.2484 (19.4932)  loss_batch_en_unscaled: 0.2812 (0.3384)  loss_sample_en_unscaled: 0.7861 (0.7834)  wd: 0.0100 (0.0100)  time: 3.23E-01  data: 1.76E-04  max mem: 14238
+[03/28 00:05:06.477]: Epoch: [20/80]  [645/646]  eta: 0:00:00  lr: 9.850065e-05  all_loss: 20.7946 (20.8138)  los_cls: 19.7878 (19.6888)  loss_batch_en: 0.3871 (0.3454)  loss_sample_en: 0.7282 (0.7796)  los_cls_unscaled: 19.7878 (19.6888)  loss_batch_en_unscaled: 0.3871 (0.3454)  loss_sample_en_unscaled: 0.7282 (0.7796)  wd: 0.0100 (0.0100)  time: 3.10E-01  data: 1.65E-04  max mem: 14238
+[03/28 00:05:06.722]: Epoch: [20/80] Total time: 0:03:27 (0.321048 s / it)
+[03/28 00:05:08.498]: Epoch: [20]  [  0/317]  eta: 0:04:39    time: 8.82E-01  data: 6.95E-01  max mem: 14238
+[03/28 00:05:35.452]: Epoch: [20]  [316/317]  eta: 0:00:00    time: 8.62E-02  data: 1.43E-04  max mem: 14238
+[03/28 00:05:35.627]: Epoch: [20] Total time: 0:00:28 (0.088366 s / it)
+[03/28 00:05:35.628]: => synchronize...
+[03/28 00:05:37.257]: Calculating mAP:
+[03/28 00:05:41.176]:   mAP: 0.8226786460027384
+[03/28 00:05:42.720]: Epoch: [20]  [  0/317]  eta: 0:04:16    time: 8.08E-01  data: 7.31E-01  max mem: 14238
+[03/28 00:06:09.843]: Epoch: [20]  [316/317]  eta: 0:00:00    time: 8.65E-02  data: 1.53E-04  max mem: 14238
+[03/28 00:06:10.061]: Epoch: [20] Total time: 0:00:28 (0.088803 s / it)
+[03/28 00:06:10.062]: => synchronize...
+[03/28 00:06:11.857]: Calculating mAP:
+[03/28 00:06:15.775]:   mAP: 0.8573897438799822
+[03/28 00:06:15.785]: 20 | Set best mAP 0.8573897438799822 in ep 20
+[03/28 00:06:15.785]:    | best regular mAP 0.8242485363146915 in ep 19
+{"train_lr": 9.877896472938403e-05, "train_all_loss": 20.813810184824874, "train_los_cls": 19.688815157591485, "train_loss_batch_en": 0.3453585985275245, "train_loss_sample_en": 0.7796364287058636, "train_los_cls_unscaled": 19.688815157591485, "train_loss_batch_en_unscaled": 0.3453585985275245, "train_loss_sample_en_unscaled": 0.7796364287058636, "train_wd": 0.009999999999999856, "test_loss": 61.47256978264848, "test_los_cls": 35.37303309551278, "test_loss_batch_en": 25.295564651489258, "test_loss_sample_en": 0.8039720356464386, "test_los_cls_unscaled": 35.37303309551278, "test_loss_batch_en_unscaled": 25.295564651489258, "test_loss_sample_en_unscaled": 0.8039720356464386, "test_ema_loss": 54.97930797683949, "test_ema_los_cls": 31.496960503337338, "test_ema_loss_batch_en": 22.63990068435669, "test_ema_loss_sample_en": 0.8424467891454697, "test_ema_los_cls_unscaled": 31.496960503337338, "test_ema_loss_batch_en_unscaled": 22.63990068435669, "test_ema_loss_sample_en_unscaled": 0.8424467891454697, "epoch": 20, "n_parameters": 117948561, "epoch_time": "0:04:37", "best_mAP": 0.8573897438799822, "best_regular_mAP": 0.8242485363146915}
+[03/28 00:06:26.341]: Training time 1:40:33
+[03/28 00:06:26.342]: Now time: 2024-03-28 00:06:26.342006
+[03/28 00:06:29.665]: Epoch: [21/80]  [  0/646]  eta: 0:27:12  lr: 9.849972e-05  all_loss: 16.6644 (16.6644)  los_cls: 15.4446 (15.4446)  loss_batch_en: 0.4993 (0.4993)  loss_sample_en: 0.7205 (0.7205)  los_cls_unscaled: 15.4446 (15.4446)  loss_batch_en_unscaled: 0.4993 (0.4993)  loss_sample_en_unscaled: 0.7205 (0.7205)  wd: 0.0100 (0.0100)  time: 2.53E+00  data: 8.16E-01  max mem: 14238
+[03/28 00:08:40.486]: Epoch: [21/80]  [400/646]  eta: 0:01:21  lr: 9.810789e-05  all_loss: 20.7766 (20.2969)  los_cls: 19.8095 (19.1927)  loss_batch_en: 0.3004 (0.3445)  loss_sample_en: 0.7544 (0.7596)  los_cls_unscaled: 19.8095 (19.1927)  loss_batch_en_unscaled: 0.3004 (0.3445)  loss_sample_en_unscaled: 0.7544 (0.7596)  wd: 0.0100 (0.0100)  time: 3.15E-01  data: 1.78E-04  max mem: 14238
+[03/28 00:10:01.862]: Epoch: [21/80]  [645/646]  eta: 0:00:00  lr: 9.784592e-05  all_loss: 21.1385 (20.3697)  los_cls: 20.0596 (19.2671)  loss_batch_en: 0.3621 (0.3470)  loss_sample_en: 0.7241 (0.7555)  los_cls_unscaled: 20.0596 (19.2671)  loss_batch_en_unscaled: 0.3621 (0.3470)  loss_sample_en_unscaled: 0.7241 (0.7555)  wd: 0.0100 (0.0100)  time: 3.12E-01  data: 1.40E-04  max mem: 14238
+[03/28 00:10:02.146]: Epoch: [21/80] Total time: 0:03:35 (0.332830 s / it)
+[03/28 00:10:04.242]: Epoch: [21]  [  0/317]  eta: 0:04:48    time: 9.09E-01  data: 6.46E-01  max mem: 14238
+[03/28 00:10:32.469]: Epoch: [21]  [316/317]  eta: 0:00:00    time: 8.67E-02  data: 1.92E-04  max mem: 14238
+[03/28 00:10:32.695]: Epoch: [21] Total time: 0:00:29 (0.092627 s / it)
+[03/28 00:10:32.695]: => synchronize...
+[03/28 00:10:34.299]: Calculating mAP:
+[03/28 00:10:38.184]:   mAP: 0.8226852343033416
+[03/28 00:10:39.784]: Epoch: [21]  [  0/317]  eta: 0:04:33    time: 8.63E-01  data: 6.00E-01  max mem: 14238
+[03/28 00:11:07.106]: Epoch: [21]  [316/317]  eta: 0:00:00    time: 8.71E-02  data: 1.53E-04  max mem: 14238
+[03/28 00:11:07.366]: Epoch: [21] Total time: 0:00:28 (0.089736 s / it)
+[03/28 00:11:07.367]: => synchronize...
+[03/28 00:11:08.991]: Calculating mAP:
+[03/28 00:11:12.896]:   mAP: 0.8575802953122696
+[03/28 00:11:12.906]: 21 | Set best mAP 0.8575802953122696 in ep 21
+[03/28 00:11:12.907]:    | best regular mAP 0.8242485363146915 in ep 19
+{"train_lr": 9.81824524625588e-05, "train_all_loss": 20.369691995612925, "train_los_cls": 19.26711129331731, "train_loss_batch_en": 0.34703493764156895, "train_loss_sample_en": 0.7555457646540444, "train_los_cls_unscaled": 19.26711129331731, "train_loss_batch_en_unscaled": 0.34703493764156895, "train_loss_sample_en_unscaled": 0.7555457646540444, "train_wd": 0.009999999999999856, "test_loss": 59.97781757501392, "test_los_cls": 33.12183144179611, "test_loss_batch_en": 26.08373737335205, "test_loss_sample_en": 0.7722487598657608, "test_los_cls_unscaled": 33.12183144179611, "test_loss_batch_en_unscaled": 26.08373737335205, "test_loss_sample_en_unscaled": 0.7722487598657608, "test_ema_loss": 55.74693524333112, "test_ema_los_cls": 32.00375356765859, "test_ema_loss_batch_en": 22.920084476470947, "test_ema_loss_sample_en": 0.8230971992015839, "test_ema_los_cls_unscaled": 32.00375356765859, "test_ema_loss_batch_en_unscaled": 22.920084476470947, "test_ema_loss_sample_en_unscaled": 0.8230971992015839, "epoch": 21, "n_parameters": 117948561, "epoch_time": "0:04:46", "best_mAP": 0.8575802953122696, "best_regular_mAP": 0.8242485363146915}
+[03/28 00:11:23.207]: Training time 1:45:30
+[03/28 00:11:23.208]: Now time: 2024-03-28 00:11:23.208316
+[03/28 00:11:25.128]: Epoch: [22/80]  [  0/646]  eta: 0:12:05  lr: 9.784482e-05  all_loss: 20.4087 (20.4087)  los_cls: 19.4455 (19.4455)  loss_batch_en: 0.1872 (0.1872)  loss_sample_en: 0.7760 (0.7760)  los_cls_unscaled: 19.4455 (19.4455)  loss_batch_en_unscaled: 0.1872 (0.1872)  loss_sample_en_unscaled: 0.7760 (0.7760)  wd: 0.0100 (0.0100)  time: 1.12E+00  data: 7.61E-01  max mem: 14238
+[03/28 00:13:31.641]: Epoch: [22/80]  [400/646]  eta: 0:01:18  lr: 9.738141e-05  all_loss: 19.2639 (19.4177)  los_cls: 18.0217 (18.3046)  loss_batch_en: 0.2777 (0.3631)  loss_sample_en: 0.7672 (0.7500)  los_cls_unscaled: 18.0217 (18.3046)  loss_batch_en_unscaled: 0.2777 (0.3631)  loss_sample_en_unscaled: 0.7672 (0.7500)  wd: 0.0100 (0.0100)  time: 3.17E-01  data: 2.11E-04  max mem: 14238
+[03/28 00:14:48.790]: Epoch: [22/80]  [645/646]  eta: 0:00:00  lr: 9.707593e-05  all_loss: 20.5460 (19.6932)  los_cls: 19.0896 (18.5860)  loss_batch_en: 0.2900 (0.3576)  loss_sample_en: 0.7503 (0.7496)  los_cls_unscaled: 19.0896 (18.5860)  loss_batch_en_unscaled: 0.2900 (0.3576)  loss_sample_en_unscaled: 0.7503 (0.7496)  wd: 0.0100 (0.0100)  time: 3.10E-01  data: 1.54E-04  max mem: 14238
+[03/28 00:14:49.063]: Epoch: [22/80] Total time: 0:03:25 (0.317428 s / it)
+[03/28 00:14:51.874]: Epoch: [22]  [  0/317]  eta: 0:08:02    time: 1.52E+00  data: 5.48E-01  max mem: 14238
+[03/28 00:15:18.953]: Epoch: [22]  [316/317]  eta: 0:00:00    time: 8.64E-02  data: 1.66E-04  max mem: 14238
+[03/28 00:15:19.173]: Epoch: [22] Total time: 0:00:28 (0.090920 s / it)
+[03/28 00:15:19.174]: => synchronize...
+[03/28 00:15:20.741]: Calculating mAP:
+[03/28 00:15:24.353]:   mAP: 0.8234448859292776
+[03/28 00:15:25.980]: Epoch: [22]  [  0/317]  eta: 0:04:43    time: 8.96E-01  data: 5.74E-01  max mem: 14238
+[03/28 00:15:52.991]: Epoch: [22]  [316/317]  eta: 0:00:00    time: 8.57E-02  data: 1.39E-04  max mem: 14238
+[03/28 00:15:53.219]: Epoch: [22] Total time: 0:00:28 (0.088756 s / it)
+[03/28 00:15:53.220]: => synchronize...
+[03/28 00:15:54.820]: Calculating mAP:
+[03/28 00:15:58.678]:   mAP: 0.8574809133441444
+[03/28 00:15:58.687]: 22 | Set best mAP 0.8575802953122696 in ep 21
+[03/28 00:15:58.688]:    | best regular mAP 0.8242485363146915 in ep 19
+{"train_lr": 9.746986492928418e-05, "train_all_loss": 19.693156491226404, "train_los_cls": 18.585961491261138, "train_loss_batch_en": 0.35755066864261686, "train_loss_sample_en": 0.7496443313226426, "train_los_cls_unscaled": 18.585961491261138, "train_loss_batch_en_unscaled": 0.35755066864261686, "train_loss_sample_en_unscaled": 0.7496443313226426, "train_wd": 0.009999999999999856, "test_loss": 59.07743120217812, "test_los_cls": 33.08587417030823, "test_loss_batch_en": 25.270652770996094, "test_loss_sample_en": 0.7209042608737946, "test_los_cls_unscaled": 33.08587417030823, "test_loss_batch_en_unscaled": 25.270652770996094, "test_loss_sample_en_unscaled": 0.7209042608737946, "test_ema_loss": 56.12742256304954, "test_ema_los_cls": 32.278065971348035, "test_ema_loss_batch_en": 23.043933868408203, "test_ema_loss_sample_en": 0.8054227232933044, "test_ema_los_cls_unscaled": 32.278065971348035, "test_ema_loss_batch_en_unscaled": 23.043933868408203, "test_ema_loss_sample_en_unscaled": 0.8054227232933044, "epoch": 22, "n_parameters": 117948561, "epoch_time": "0:04:35", "best_mAP": 0.8575802953122696, "best_regular_mAP": 0.8242485363146915}
+[03/28 00:15:58.689]: Training time 1:50:06
+[03/28 00:15:58.689]: Now time: 2024-03-28 00:15:58.689206
+[03/28 00:16:02.038]: Epoch: [23/80]  [  0/646]  eta: 0:26:30  lr: 9.707465e-05  all_loss: 16.5292 (16.5291)  los_cls: 15.4710 (15.4710)  loss_batch_en: 0.2613 (0.2613)  loss_sample_en: 0.7969 (0.7969)  los_cls_unscaled: 15.4710 (15.4710)  loss_batch_en_unscaled: 0.2613 (0.2613)  loss_sample_en_unscaled: 0.7969 (0.7969)  wd: 0.0100 (0.0100)  time: 2.46E+00  data: 6.71E-01  max mem: 14238
+[03/28 00:18:08.194]: Epoch: [23/80]  [400/646]  eta: 0:01:18  lr: 9.654079e-05  all_loss: 18.7913 (18.8951)  los_cls: 17.5312 (17.8197)  loss_batch_en: 0.3471 (0.3439)  loss_sample_en: 0.7490 (0.7315)  los_cls_unscaled: 17.5312 (17.8197)  loss_batch_en_unscaled: 0.3471 (0.3439)  loss_sample_en_unscaled: 0.7490 (0.7315)  wd: 0.0100 (0.0100)  time: 3.14E-01  data: 1.75E-04  max mem: 14238
+[03/28 00:19:25.465]: Epoch: [23/80]  [645/646]  eta: 0:00:00  lr: 9.619254e-05  all_loss: 19.1706 (19.0856)  los_cls: 18.0774 (18.0095)  loss_batch_en: 0.2694 (0.3430)  loss_sample_en: 0.7342 (0.7331)  los_cls_unscaled: 18.0774 (18.0095)  loss_batch_en_unscaled: 0.2694 (0.3430)  loss_sample_en_unscaled: 0.7342 (0.7331)  wd: 0.0100 (0.0100)  time: 3.10E-01  data: 1.44E-04  max mem: 14238
+[03/28 00:19:25.709]: Epoch: [23/80] Total time: 0:03:26 (0.319093 s / it)
+[03/28 00:19:29.216]: Epoch: [23]  [  0/317]  eta: 0:08:01    time: 1.52E+00  data: 5.89E-01  max mem: 14238
+[03/28 00:19:56.079]: Epoch: [23]  [316/317]  eta: 0:00:00    time: 8.49E-02  data: 1.38E-04  max mem: 14238
+[03/28 00:19:56.267]: Epoch: [23] Total time: 0:00:28 (0.090126 s / it)
+[03/28 00:19:56.267]: => synchronize...
+[03/28 00:19:57.874]: Calculating mAP:
+[03/28 00:20:01.456]:   mAP: 0.820995426463055
+[03/28 00:20:03.130]: Epoch: [23]  [  0/317]  eta: 0:04:58    time: 9.42E-01  data: 8.51E-01  max mem: 14238
+[03/28 00:20:29.991]: Epoch: [23]  [316/317]  eta: 0:00:00    time: 8.58E-02  data: 1.43E-04  max mem: 14238
+[03/28 00:20:30.209]: Epoch: [23] Total time: 0:00:28 (0.088398 s / it)
+[03/28 00:20:30.210]: => synchronize...
+[03/28 00:20:31.771]: Calculating mAP:
+[03/28 00:20:35.634]:   mAP: 0.8571977334069526
+[03/28 00:20:35.648]: 23 | Set best mAP 0.8575802953122696 in ep 21
+[03/28 00:20:35.648]:    | best regular mAP 0.8242485363146915 in ep 19
+{"train_lr": 9.664291881534362e-05, "train_all_loss": 19.085625317820075, "train_los_cls": 18.00946457465643, "train_loss_batch_en": 0.34301208545548995, "train_loss_sample_en": 0.7331486577081606, "train_los_cls_unscaled": 18.00946457465643, "train_loss_batch_en_unscaled": 0.34301208545548995, "train_loss_sample_en_unscaled": 0.7331486577081606, "train_wd": 0.009999999999999856, "test_loss": 63.38788640490746, "test_los_cls": 35.48924143604016, "test_loss_batch_en": 27.199795722961426, "test_loss_sample_en": 0.6988492459058762, "test_los_cls_unscaled": 35.48924143604016, "test_loss_batch_en_unscaled": 27.199795722961426, "test_loss_sample_en_unscaled": 0.6988492459058762, "test_ema_loss": 56.61519536535048, "test_ema_los_cls": 32.42715428928637, "test_ema_loss_batch_en": 23.4046573638916, "test_ema_loss_sample_en": 0.7833837121725082, "test_ema_los_cls_unscaled": 32.42715428928637, "test_ema_loss_batch_en_unscaled": 23.4046573638916, "test_ema_loss_sample_en_unscaled": 0.7833837121725082, "epoch": 23, "n_parameters": 117948561, "epoch_time": "0:04:36", "best_mAP": 0.8575802953122696, "best_regular_mAP": 0.8242485363146915}
+[03/28 00:20:35.649]: Training time 1:54:43
+[03/28 00:20:35.650]: Now time: 2024-03-28 00:20:35.650023
+[03/28 00:20:37.760]: Epoch: [24/80]  [  0/646]  eta: 0:14:36  lr: 9.619108e-05  all_loss: 19.1888 (19.1888)  los_cls: 17.9827 (17.9827)  loss_batch_en: 0.4937 (0.4937)  loss_sample_en: 0.7124 (0.7124)  los_cls_unscaled: 17.9827 (17.9827)  loss_batch_en_unscaled: 0.4937 (0.4937)  loss_sample_en_unscaled: 0.7124 (0.7124)  wd: 0.0100 (0.0100)  time: 1.36E+00  data: 8.93E-01  max mem: 14238
+[03/28 00:22:43.865]: Epoch: [24/80]  [400/646]  eta: 0:01:18  lr: 9.558805e-05  all_loss: 18.2456 (18.3320)  los_cls: 17.1627 (17.2698)  loss_batch_en: 0.3009 (0.3399)  loss_sample_en: 0.7197 (0.7222)  los_cls_unscaled: 17.1627 (17.2698)  loss_batch_en_unscaled: 0.3009 (0.3399)  loss_sample_en_unscaled: 0.7197 (0.7222)  wd: 0.0100 (0.0100)  time: 3.18E-01  data: 1.85E-04  max mem: 14238
+[03/28 00:24:01.666]: Epoch: [24/80]  [645/646]  eta: 0:00:00  lr: 9.519786e-05  all_loss: 18.2736 (18.5167)  los_cls: 17.2036 (17.4528)  loss_batch_en: 0.3390 (0.3401)  loss_sample_en: 0.7421 (0.7238)  los_cls_unscaled: 17.2036 (17.4528)  loss_batch_en_unscaled: 0.3390 (0.3401)  loss_sample_en_unscaled: 0.7421 (0.7238)  wd: 0.0100 (0.0100)  time: 3.28E-01  data: 1.34E-04  max mem: 14238
+[03/28 00:24:01.941]: Epoch: [24/80] Total time: 0:03:25 (0.318173 s / it)
+[03/28 00:24:05.641]: Epoch: [24]  [  0/317]  eta: 0:07:37    time: 1.44E+00  data: 6.03E-01  max mem: 14238
+[03/28 00:24:32.488]: Epoch: [24]  [316/317]  eta: 0:00:00    time: 8.59E-02  data: 1.31E-04  max mem: 14238
+[03/28 00:24:32.754]: Epoch: [24] Total time: 0:00:28 (0.090084 s / it)
+[03/28 00:24:32.755]: => synchronize...
+[03/28 00:24:34.293]: Calculating mAP:
+[03/28 00:24:38.226]:   mAP: 0.8206673343846708
+[03/28 00:24:39.985]: Epoch: [24]  [  0/317]  eta: 0:05:25    time: 1.03E+00  data: 6.15E-01  max mem: 14238
+[03/28 00:25:06.932]: Epoch: [24]  [316/317]  eta: 0:00:00    time: 8.59E-02  data: 1.72E-04  max mem: 14238
+[03/28 00:25:07.195]: Epoch: [24] Total time: 0:00:28 (0.089083 s / it)
+[03/28 00:25:07.196]: => synchronize...
+[03/28 00:25:08.745]: Calculating mAP:
+[03/28 00:25:12.632]:   mAP: 0.8566589678219003
+[03/28 00:25:12.643]: 24 | Set best mAP 0.8575802953122696 in ep 21
+[03/28 00:25:12.644]:    | best regular mAP 0.8242485363146915 in ep 19
+{"train_lr": 9.570360630635693e-05, "train_all_loss": 18.516683362430967, "train_los_cls": 17.45280829963038, "train_loss_batch_en": 0.3400773225184934, "train_loss_sample_en": 0.7237977402821045, "train_los_cls_unscaled": 17.45280829963038, "train_loss_batch_en_unscaled": 0.3400773225184934, "train_loss_sample_en_unscaled": 0.7237977402821045, "train_wd": 0.009999999999999856, "test_loss": 63.03385885476584, "test_los_cls": 36.24499144076819, "test_loss_batch_en": 26.006552696228027, "test_loss_sample_en": 0.7823147177696228, "test_los_cls_unscaled": 36.24499144076819, "test_loss_batch_en_unscaled": 26.006552696228027, "test_loss_sample_en_unscaled": 0.7823147177696228, "test_ema_loss": 57.75257954958983, "test_ema_los_cls": 33.05799671475001, "test_ema_loss_batch_en": 23.9309344291687, "test_ema_loss_sample_en": 0.7636484056711197, "test_ema_los_cls_unscaled": 33.05799671475001, "test_ema_loss_batch_en_unscaled": 23.9309344291687, "test_ema_loss_sample_en_unscaled": 0.7636484056711197, "epoch": 24, "n_parameters": 117948561, "epoch_time": "0:04:36", "best_mAP": 0.8575802953122696, "best_regular_mAP": 0.8242485363146915}
+[03/28 00:25:12.645]: Training time 1:59:20
+[03/28 00:25:12.645]: Now time: 2024-03-28 00:25:12.645331
+[03/28 00:25:16.261]: Epoch: [25/80]  [  0/646]  eta: 0:28:38  lr: 9.519623e-05  all_loss: 17.0991 (17.0991)  los_cls: 15.8666 (15.8666)  loss_batch_en: 0.5502 (0.5502)  loss_sample_en: 0.6822 (0.6822)  los_cls_unscaled: 15.8666 (15.8666)  loss_batch_en_unscaled: 0.5502 (0.5502)  loss_sample_en_unscaled: 0.6822 (0.6822)  wd: 0.0100 (0.0100)  time: 2.66E+00  data: 7.49E-01  max mem: 14238
+[03/28 00:27:22.565]: Epoch: [25/80]  [400/646]  eta: 0:01:19  lr: 9.452548e-05  all_loss: 17.8208 (17.5922)  los_cls: 16.9102 (16.5240)  loss_batch_en: 0.2788 (0.3493)  loss_sample_en: 0.7068 (0.7189)  los_cls_unscaled: 16.9102 (16.5240)  loss_batch_en_unscaled: 0.2788 (0.3493)  loss_sample_en_unscaled: 0.7068 (0.7189)  wd: 0.0100 (0.0100)  time: 3.15E-01  data: 1.78E-04  max mem: 14238
+[03/28 00:28:39.535]: Epoch: [25/80]  [645/646]  eta: 0:00:00  lr: 9.409430e-05  all_loss: 18.6247 (17.9054)  los_cls: 17.3814 (16.8406)  loss_batch_en: 0.3733 (0.3461)  loss_sample_en: 0.7129 (0.7186)  los_cls_unscaled: 17.3814 (16.8406)  loss_batch_en_unscaled: 0.3733 (0.3461)  loss_sample_en_unscaled: 0.7129 (0.7186)  wd: 0.0100 (0.0100)  time: 3.10E-01  data: 1.44E-04  max mem: 14238
+[03/28 00:28:39.736]: Epoch: [25/80] Total time: 0:03:26 (0.319096 s / it)
+[03/28 00:28:41.653]: Epoch: [25]  [  0/317]  eta: 0:05:11    time: 9.82E-01  data: 6.00E-01  max mem: 14238
+[03/28 00:29:08.489]: Epoch: [25]  [316/317]  eta: 0:00:00    time: 8.54E-02  data: 1.40E-04  max mem: 14238
+[03/28 00:29:08.698]: Epoch: [25] Total time: 0:00:28 (0.088415 s / it)
+[03/28 00:29:08.699]: => synchronize...
+[03/28 00:29:10.200]: Calculating mAP:
+[03/28 00:29:13.953]:   mAP: 0.8205134510756362
+[03/28 00:29:15.498]: Epoch: [25]  [  0/317]  eta: 0:04:12    time: 7.98E-01  data: 6.06E-01  max mem: 14238
+[03/28 00:29:42.512]: Epoch: [25]  [316/317]  eta: 0:00:00    time: 8.57E-02  data: 1.89E-04  max mem: 14238
+[03/28 00:29:42.737]: Epoch: [25] Total time: 0:00:28 (0.088448 s / it)
+[03/28 00:29:42.738]: => synchronize...
+[03/28 00:29:44.302]: Calculating mAP:
+[03/28 00:29:48.201]:   mAP: 0.8559478737086021
+[03/28 00:29:48.212]: 25 | Set best mAP 0.8575802953122696 in ep 21
+[03/28 00:29:48.212]:    | best regular mAP 0.8242485363146915 in ep 19
+{"train_lr": 9.46541902884329e-05, "train_all_loss": 17.90536193467312, "train_los_cls": 16.84062656511813, "train_loss_batch_en": 0.3461102629224582, "train_loss_sample_en": 0.718625106632525, "train_los_cls_unscaled": 16.84062656511813, "train_loss_batch_en_unscaled": 0.3461102629224582, "train_loss_sample_en_unscaled": 0.718625106632525, "train_wd": 0.009999999999999856, "test_loss": 67.43703147154513, "test_los_cls": 35.98930447679224, "test_loss_batch_en": 30.805194854736328, "test_loss_sample_en": 0.6425321400165558, "test_los_cls_unscaled": 35.98930447679224, "test_loss_batch_en_unscaled": 30.805194854736328, "test_loss_sample_en_unscaled": 0.6425321400165558, "test_ema_loss": 59.33238031916309, "test_ema_los_cls": 33.81799718193699, "test_ema_loss_batch_en": 24.776194095611572, "test_ema_loss_sample_en": 0.7381890416145325, "test_ema_los_cls_unscaled": 33.81799718193699, "test_ema_loss_batch_en_unscaled": 24.776194095611572, "test_ema_loss_sample_en_unscaled": 0.7381890416145325, "epoch": 25, "n_parameters": 117948561, "epoch_time": "0:04:35", "best_mAP": 0.8575802953122696, "best_regular_mAP": 0.8242485363146915}
+[03/28 00:29:48.213]: Training time 2:03:55
+[03/28 00:29:48.213]: Now time: 2024-03-28 00:29:48.213660
+[03/28 00:29:50.344]: Epoch: [26/80]  [  0/646]  eta: 0:14:47  lr: 9.409250e-05  all_loss: 15.5076 (15.5076)  los_cls: 14.6161 (14.6161)  loss_batch_en: 0.1864 (0.1864)  loss_sample_en: 0.7051 (0.7051)  los_cls_unscaled: 14.6161 (14.6161)  loss_batch_en_unscaled: 0.1864 (0.1864)  loss_sample_en_unscaled: 0.7051 (0.7051)  wd: 0.0100 (0.0100)  time: 1.37E+00  data: 8.90E-01  max mem: 14238
+[03/28 00:31:56.995]: Epoch: [26/80]  [400/646]  eta: 0:01:18  lr: 9.335565e-05  all_loss: 17.3357 (16.9599)  los_cls: 16.3996 (15.9079)  loss_batch_en: 0.3250 (0.3499)  loss_sample_en: 0.6902 (0.7021)  los_cls_unscaled: 16.3996 (15.9079)  loss_batch_en_unscaled: 0.3250 (0.3499)  loss_sample_en_unscaled: 0.6902 (0.7021)  wd: 0.0100 (0.0100)  time: 3.14E-01  data: 1.78E-04  max mem: 14238
+[03/28 00:33:14.120]: Epoch: [26/80]  [645/646]  eta: 0:00:00  lr: 9.288451e-05  all_loss: 17.3760 (17.2483)  los_cls: 16.1777 (16.1965)  loss_batch_en: 0.3062 (0.3496)  loss_sample_en: 0.6999 (0.7022)  los_cls_unscaled: 16.1777 (16.1965)  loss_batch_en_unscaled: 0.3062 (0.3496)  loss_sample_en_unscaled: 0.6999 (0.7022)  wd: 0.0100 (0.0100)  time: 3.10E-01  data: 1.38E-04  max mem: 14238
+[03/28 00:33:14.372]: Epoch: [26/80] Total time: 0:03:25 (0.317960 s / it)
+[03/28 00:33:16.183]: Epoch: [26]  [  0/317]  eta: 0:05:04    time: 9.61E-01  data: 8.83E-01  max mem: 14238
+[03/28 00:33:43.048]: Epoch: [26]  [316/317]  eta: 0:00:00    time: 8.57E-02  data: 1.47E-04  max mem: 14238
+[03/28 00:33:43.234]: Epoch: [26] Total time: 0:00:28 (0.088368 s / it)
+[03/28 00:33:43.235]: => synchronize...
+[03/28 00:33:44.873]: Calculating mAP:
+[03/28 00:33:48.819]:   mAP: 0.8195329823224835
+[03/28 00:33:50.440]: Epoch: [26]  [  0/317]  eta: 0:04:25    time: 8.38E-01  data: 5.62E-01  max mem: 14238
+[03/28 00:34:17.284]: Epoch: [26]  [316/317]  eta: 0:00:00    time: 8.58E-02  data: 1.61E-04  max mem: 14238
+[03/28 00:34:17.485]: Epoch: [26] Total time: 0:00:27 (0.087966 s / it)
+[03/28 00:34:17.486]: => synchronize...
+[03/28 00:34:19.095]: Calculating mAP:
+[03/28 00:34:22.991]:   mAP: 0.8550984184150738
+[03/28 00:34:23.006]: 26 | Set best mAP 0.8575802953122696 in ep 21
+[03/28 00:34:23.006]:    | best regular mAP 0.8242485363146915 in ep 19
+{"train_lr": 9.349719889667643e-05, "train_all_loss": 17.24828291209379, "train_los_cls": 16.19648841386914, "train_loss_batch_en": 0.3495569430268586, "train_loss_sample_en": 0.7022375551977947, "train_los_cls_unscaled": 16.19648841386914, "train_loss_batch_en_unscaled": 0.3495569430268586, "train_loss_sample_en_unscaled": 0.7022375551977947, "train_wd": 0.009999999999999856, "test_loss": 64.99775261846142, "test_los_cls": 34.045497324734505, "test_loss_batch_en": 30.324005603790283, "test_loss_sample_en": 0.6282496899366379, "test_los_cls_unscaled": 34.045497324734505, "test_loss_batch_en_unscaled": 30.324005603790283, "test_loss_sample_en_unscaled": 0.6282496899366379, "test_ema_loss": 60.05082065254234, "test_ema_los_cls": 34.016036410031546, "test_ema_loss_batch_en": 25.318050384521484, "test_ema_loss_sample_en": 0.7167338579893112, "test_ema_los_cls_unscaled": 34.016036410031546, "test_ema_loss_batch_en_unscaled": 25.318050384521484, "test_ema_loss_sample_en_unscaled": 0.7167338579893112, "epoch": 26, "n_parameters": 117948561, "epoch_time": "0:04:34", "best_mAP": 0.8575802953122696, "best_regular_mAP": 0.8242485363146915}
+[03/28 00:34:23.007]: Training time 2:08:30
+[03/28 00:34:23.007]: Now time: 2024-03-28 00:34:23.007955
+[03/28 00:34:23.008]: epoch - best_epoch = 5, stop!
+[03/28 00:34:23.050]: Kill all process of main_mlc.py: 1547814 1547817 1547818 1547819 1547820
+[03/28 00:34:23.050]: Training time 2:08:30
+[03/28 00:34:23.050]: Now time: 2024-03-28 00:34:23.050396
+[03/28 00:34:23.050]: Best mAP 0.8575802953122696:
