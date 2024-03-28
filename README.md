@@ -24,7 +24,7 @@ The overall architecture of the proposed Scene-Aware Label Graph Learning
 |MS-COCO                   |  85.75 |    85.75    |
 |VOC 2007                  |  -     |      -      |
 |VOC 2007 pretrain on COCO |  -     |      -      |
-|NUS-WIDE                  |  -     |      -      |
+|NUS-WIDE                  |  66.34 |     66.24   |
 
 ## Prerequisites
 
